@@ -19,6 +19,10 @@
 		5BC1F21A1899785800E11A42 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC1F2021899785800E11A42 /* UIKit.framework */; };
 		5BC1F2221899785800E11A42 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BC1F2201899785800E11A42 /* InfoPlist.strings */; };
 		5BC1F2241899785800E11A42 /* raxxFaceSwapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1F2231899785800E11A42 /* raxxFaceSwapTests.m */; };
+		5BC1F22F1899789A00E11A42 /* UIImage+raxxFaceDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1F22E1899789A00E11A42 /* UIImage+raxxFaceDetection.m */; };
+		5BC1F2341899790200E11A42 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1F2331899790200E11A42 /* MainViewController.m */; };
+		5BC1F23618999A1200E11A42 /* facedetectionpic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BC1F23518999A1200E11A42 /* facedetectionpic.jpg */; };
+		5BC1F2391899C8BD00E11A42 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC1F2381899C8BD00E11A42 /* opencv2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,12 @@
 		5BC1F21F1899785800E11A42 /* raxxFaceSwapTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "raxxFaceSwapTests-Info.plist"; sourceTree = "<group>"; };
 		5BC1F2211899785800E11A42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5BC1F2231899785800E11A42 /* raxxFaceSwapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = raxxFaceSwapTests.m; sourceTree = "<group>"; };
+		5BC1F22D1899789A00E11A42 /* UIImage+raxxFaceDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+raxxFaceDetection.h"; sourceTree = "<group>"; };
+		5BC1F22E1899789A00E11A42 /* UIImage+raxxFaceDetection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+raxxFaceDetection.m"; sourceTree = "<group>"; };
+		5BC1F2321899790200E11A42 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		5BC1F2331899790200E11A42 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		5BC1F23518999A1200E11A42 /* facedetectionpic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = facedetectionpic.jpg; sourceTree = "<group>"; };
+		5BC1F2381899C8BD00E11A42 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BC1F2391899C8BD00E11A42 /* opencv2.framework in Frameworks */,
 				5BC1F2011899785800E11A42 /* CoreGraphics.framework in Frameworks */,
 				5BC1F2031899785800E11A42 /* UIKit.framework in Frameworks */,
 				5BC1F1FF1899785800E11A42 /* Foundation.framework in Frameworks */,
@@ -96,6 +107,7 @@
 		5BC1F1FD1899785800E11A42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5BC1F2381899C8BD00E11A42 /* opencv2.framework */,
 				5BC1F1FE1899785800E11A42 /* Foundation.framework */,
 				5BC1F2001899785800E11A42 /* CoreGraphics.framework */,
 				5BC1F2021899785800E11A42 /* UIKit.framework */,
@@ -107,6 +119,9 @@
 		5BC1F2041899785800E11A42 /* raxxFaceSwap */ = {
 			isa = PBXGroup;
 			children = (
+				5BC1F23718999A3F00E11A42 /* Resources */,
+				5BC1F231189978B200E11A42 /* Viewcontrollers */,
+				5BC1F230189978A100E11A42 /* Categories */,
 				5BC1F20D1899785800E11A42 /* AppDelegate.h */,
 				5BC1F20E1899785800E11A42 /* AppDelegate.m */,
 				5BC1F2101899785800E11A42 /* Images.xcassets */,
@@ -142,6 +157,32 @@
 				5BC1F2201899785800E11A42 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5BC1F230189978A100E11A42 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				5BC1F22D1899789A00E11A42 /* UIImage+raxxFaceDetection.h */,
+				5BC1F22E1899789A00E11A42 /* UIImage+raxxFaceDetection.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		5BC1F231189978B200E11A42 /* Viewcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				5BC1F2321899790200E11A42 /* MainViewController.h */,
+				5BC1F2331899790200E11A42 /* MainViewController.m */,
+			);
+			name = Viewcontrollers;
+			sourceTree = "<group>";
+		};
+		5BC1F23718999A3F00E11A42 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5BC1F23518999A1200E11A42 /* facedetectionpic.jpg */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +262,7 @@
 			files = (
 				5BC1F2091899785800E11A42 /* InfoPlist.strings in Resources */,
 				5BC1F2111899785800E11A42 /* Images.xcassets in Resources */,
+				5BC1F23618999A1200E11A42 /* facedetectionpic.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +282,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BC1F20F1899785800E11A42 /* AppDelegate.m in Sources */,
+				5BC1F22F1899789A00E11A42 /* UIImage+raxxFaceDetection.m in Sources */,
 				5BC1F20B1899785800E11A42 /* main.m in Sources */,
+				5BC1F2341899790200E11A42 /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +403,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/rkmitha/Downloads,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "raxxFaceSwap/raxxFaceSwap-Prefix.pch";
 				INFOPLIST_FILE = "raxxFaceSwap/raxxFaceSwap-Info.plist";
@@ -372,6 +420,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/rkmitha/Downloads,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "raxxFaceSwap/raxxFaceSwap-Prefix.pch";
 				INFOPLIST_FILE = "raxxFaceSwap/raxxFaceSwap-Info.plist";

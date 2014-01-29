@@ -1,5 +1,5 @@
 //
-//  mainViewController.h
+//  MainViewController.h
 //  raxxFaceSwap
 //
 //  Created by Rahim Mitha on 1/29/2014.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface mainViewController : UIViewController
+@interface MainViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @end
