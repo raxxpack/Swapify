@@ -11,6 +11,7 @@
 
 @interface MainViewController ()
 
+@property (nonatomic, strong) UIScrollView* scrollView;
 @property (nonatomic, strong) UIImageView* imageView;
 @property (nonatomic, strong) UIView* markedAreasView;
 @property (nonatomic, assign) BOOL isHighlightedState;
@@ -31,12 +32,18 @@
 - (void)viewDidLoad {
 	
 	[super viewDidLoad];
+	
+	self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+	self.scrollView.delegate = self;
+	[self.view addSubview:self.scrollView];
+	
+	
 	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"facedetectionpic.jpg"]];
 	self.imageView.frame = (CGRect) {
 		.origin = CGPointMake(self.imageView.frame.origin.x, 44),
 		.size = self.imageView.image.size
 	};
-	[self.view addSubview:self.imageView];
+	[self.scrollView addSubview:self.imageView];
 	
 	self.markedAreasView = [[UIView alloc] init];
 	
@@ -54,7 +61,7 @@
 	
 	if (!self.isHighlightedState) {
 		self.markedAreasView = [self.imageView.image markFaces:self.imageView];
-		[self.view addSubview:self.markedAreasView];
+		[self.scrollView addSubview:self.markedAreasView];
 		self.isHighlightedState = YES;
 	} else {
 		[self.markedAreasView removeFromSuperview];
@@ -97,12 +104,16 @@
 		.origin = CGPointMake(self.imageView.frame.origin.x, 44),
 		.size = self.imageView.image.size
 	};
+	self.scrollView.contentSize = self.imageView.frame.size;
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark -- UIScrollView delegate methods
+
 
 
 @end
