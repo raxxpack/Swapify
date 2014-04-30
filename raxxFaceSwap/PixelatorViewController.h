@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EditorViewController.h"
 
-@interface PixelatorViewController : UIViewController
+@interface PixelatorViewController : EditorViewController
 
 @end

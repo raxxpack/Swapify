@@ -10,6 +10,7 @@
 #import "MarkViewController.h"
 #import "TWTSideMenuViewController.h"
 #import "SideMenuTableViewCell.h"
+#import "PixelatorViewController.h"
 
 @interface MenuViewController ()
 
@@ -52,6 +53,17 @@
 	if (!([((UINavigationController*)self.sideMenuViewController.mainViewController).viewControllers[0] isKindOfClass:[MarkViewController class]])) {
 		
 		UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[MarkViewController new]];
+		[self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
+		
+	} else {
+		[self.sideMenuViewController closeMenuAnimated:YES completion:nil];
+	}
+}
+
+- (void)pixelatorButtonPressed {
+	if (!([((UINavigationController*)self.sideMenuViewController.mainViewController).viewControllers[0] isKindOfClass:[PixelatorViewController class]])) {
+		
+		UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[PixelatorViewController new]];
 		[self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
 		
 	} else {
@@ -115,6 +127,8 @@
 		[self closeButtonPressed];
 	} else if (indexPath.row == 1) {
 		[self markFacesButtonPressed];
+	} else if (indexPath.row == 2) {
+		[self pixelatorButtonPressed];
 	}
 }
 
