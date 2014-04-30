@@ -15,5 +15,6 @@
  * Marks the faces in a UIImageView with a border and highlights eyes and mouth
  */
 - (UIView*)markFaces:(UIImageView *)image; 
+- (UIImage*) pixelateFaces:(UIImage*)fromImage;
 
 @end

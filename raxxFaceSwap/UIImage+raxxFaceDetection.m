@@ -12,7 +12,6 @@
 
 - (UIView*)markFaces:(UIImageView *)image {
 	
-	
     CIImage *myImage = [CIImage imageWithCGImage:[[image image] CGImage]];
     NSNumber *orientation = [NSNumber numberWithInt:[[image image] imageOrientation]+1];
     
@@ -58,7 +57,6 @@
             UIView* mouth = [[UIView alloc] initWithFrame:CGRectMake(faceFeature.mouthPosition.x-faceWidth*0.2, faceFeature.mouthPosition.y-faceWidth*0.2, faceWidth*0.4, faceWidth*0.4)];
             [mouth setBackgroundColor:[[UIColor yellowColor] colorWithAlphaComponent:0.3]];
             [mouth setCenter:faceFeature.mouthPosition];
-//            mouth.layer.cornerRadius = faceWidth*0.2;
             [foundFaces addSubview:mouth];
         }
 		
@@ -68,6 +66,51 @@
     [foundFaces setTransform:CGAffineTransformMakeScale(1, -1)];
     
 	return foundFaces;
+}
+
+- (UIImage*) pixelateFaces:(UIImage*)fromImage
+{
+    CIFilter *filter= [CIFilter filterWithName:@"CIPixellate"];
+	
+    CIImage *inputImage = [[CIImage alloc] initWithImage:fromImage];
+	CGFloat inputScale = MAX(fromImage.size.width, fromImage.size.height)/60;
+    [filter setValue:[NSNumber numberWithDouble:inputScale] forKey:@"inputScale"];
+    [filter setValue:inputImage forKey:@"inputImage"];
+	CIImage *pixellatedImage = [filter outputImage];
+	
+	CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:nil];
+	NSArray* faceArray = [detector featuresInImage:inputImage options:nil];
+	
+	CIImage* maskImage = nil;
+	
+	for (CIFeature *f in faceArray) {
+		CGFloat centerX = f.bounds.origin.x + f.bounds.size.width / 2.0f;
+		CGFloat centerY = f.bounds.origin.y + f.bounds.size.height / 2.0f;
+		CGFloat radius = MIN(f.bounds.size.width, f.bounds.size.height) / 1.5f;
+		CIFilter *radialGradient = [CIFilter filterWithName:@"CIRadialGradient" keysAndValues:
+		@"inputRadius0", @(radius),
+		@"inputRadius1", @(radius + 1.0f),
+		@"inputColor0", [CIColor colorWithRed:0 green:1 blue:0 alpha:1],
+		@"inputColor1", [CIColor colorWithRed:0 green:0 blue:0 alpha:1],
+		kCIInputCenterKey, [CIVector vectorWithX:centerX Y:centerY],
+		nil];
+		
+		CIImage *circleImage = [radialGradient valueForKey:kCIOutputImageKey];
+		if (maskImage == nil) {
+			maskImage = circleImage;
+		} else {
+			maskImage = [[CIFilter filterWithName:@"CISourceOverCompositing" keysAndValues:kCIInputImageKey, circleImage, kCIInputBackgroundImageKey, maskImage, nil] valueForKey:kCIOutputImageKey];
+		}
+	}
+	
+	CIFilter *blendFilter = [CIFilter filterWithName:@"CIBlendWithMask"];
+	[blendFilter setValue:pixellatedImage forKey:@"inputImage"];
+	[blendFilter setValue:inputImage forKey:@"inputBackgroundImage"];
+	[blendFilter setValue:maskImage forKey:@"inputMaskImage"];
+	CIImage *outputImage = [blendFilter outputImage];
+	
+	return [UIImage imageWithCIImage:outputImage];
+	
 }
 
 @end

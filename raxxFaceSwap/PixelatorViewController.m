@@ -36,4 +36,16 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)pixellateFaces:(id)sender {
+	self.imageView.image = [self.imageView.image pixelateFaces:self.imageView.image];
+}
+
+- (void)unPixellateFaces {
+
+}
+
+- (void)handleTap:(id)sender {
+	[self pixellateFaces:nil];
+}
+
 @end
