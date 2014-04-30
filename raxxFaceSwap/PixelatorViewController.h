@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "EditorViewController.h"
 
-@interface PixelatorViewController : EditorViewController
+@interface PixelatorViewController : EditorViewController <UIAlertViewDelegate>
 
 @end

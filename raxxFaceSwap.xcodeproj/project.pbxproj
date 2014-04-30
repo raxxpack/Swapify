@@ -16,7 +16,6 @@
 		5B06E65319116EE900EEEE9E /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E65219116EE900EEEE9E /* EditorViewController.m */; };
 		5B06E6561911758D00EEEE9E /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E6551911758D00EEEE9E /* UIView+Toast.m */; };
 		5B06E6581911767600EEEE9E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B06E6571911767600EEEE9E /* QuartzCore.framework */; };
-		5BAC04B61899E52D00009CEB /* DashingYoungMan.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAC04B51899E52D00009CEB /* DashingYoungMan.jpg */; };
 		5BAC04B81899E70200009CEB /* SteveJobs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAC04B71899E70200009CEB /* SteveJobs.jpg */; };
 		5BC1F1FF1899785800E11A42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC1F1FE1899785800E11A42 /* Foundation.framework */; };
 		5BC1F2011899785800E11A42 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC1F2001899785800E11A42 /* CoreGraphics.framework */; };
@@ -63,7 +62,6 @@
 		5B06E6541911758D00EEEE9E /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		5B06E6551911758D00EEEE9E /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		5B06E6571911767600EEEE9E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		5BAC04B51899E52D00009CEB /* DashingYoungMan.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DashingYoungMan.jpg; sourceTree = "<group>"; };
 		5BAC04B71899E70200009CEB /* SteveJobs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SteveJobs.jpg; sourceTree = "<group>"; };
 		5BC1F1FB1899785800E11A42 /* raxxFaceSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = raxxFaceSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BC1F1FE1899785800E11A42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -235,7 +233,6 @@
 			children = (
 				5BAC04B71899E70200009CEB /* SteveJobs.jpg */,
 				5B06E6481911495400EEEE9E /* galaxy.png */,
-				5BAC04B51899E52D00009CEB /* DashingYoungMan.jpg */,
 				5BC1F23518999A1200E11A42 /* facedetectionpic.jpg */,
 			);
 			name = Resources;
@@ -320,7 +317,6 @@
 				5B06E6491911495400EEEE9E /* galaxy.png in Resources */,
 				5BC1F2091899785800E11A42 /* InfoPlist.strings in Resources */,
 				5BC1F2111899785800E11A42 /* Images.xcassets in Resources */,
-				5BAC04B61899E52D00009CEB /* DashingYoungMan.jpg in Resources */,
 				5BC1F23618999A1200E11A42 /* facedetectionpic.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
