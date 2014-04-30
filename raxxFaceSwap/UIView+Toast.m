@@ -113,9 +113,40 @@ static int multiToastCounter = 0;
 	newPoint.y = newPoint.y - 42*multiToastCounter;
 	multiToastCounter++;
 	
-	NSValue *pointValue = [NSValue valueWithCGPoint:newPoint];
-	
-	[self showToast:toast duration:interval position:pointValue];
+    toast.center = newPoint;
+    toast.alpha = 0.0;
+    
+    if (CSToastHidesOnTap) {
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:toast action:@selector(handleToastTapped:)];
+        [toast addGestureRecognizer:recognizer];
+        toast.userInteractionEnabled = YES;
+        toast.exclusiveTouch = YES;
+    }
+    
+    [self addSubview:toast];
+    
+    [UIView animateWithDuration:CSToastFadeDuration
+                          delay:0.0
+                        options:(UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction)
+                     animations:^{
+                         toast.alpha = 1.0;
+                     } completion:^(BOOL finished) {
+                         NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(multiToastTimerDidFinish:) userInfo:toast repeats:NO];
+                         // associate the timer with the toast view
+                         objc_setAssociatedObject (toast, &CSToastTimerKey, timer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                     }];
+}
+
+- (void)hideMultiToast:(UIView*)toast {
+	[UIView animateWithDuration:CSToastFadeDuration
+                          delay:0.0
+                        options:(UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionBeginFromCurrentState)
+                     animations:^{
+                         toast.alpha = 0.0;
+                     } completion:^(BOOL finished) {
+                         [toast removeFromSuperview];
+						 multiToastCounter--;
+                     }];
 }
 
 - (void)showToast:(UIView *)toast duration:(NSTimeInterval)duration position:(id)point {
@@ -159,6 +190,10 @@ static int multiToastCounter = 0;
 
 - (void)toastTimerDidFinish:(NSTimer *)timer {
     [self hideToast:(UIView *)timer.userInfo];
+}
+
+- (void)multiToastTimerDidFinish:(NSTimer *)timer {
+    [self hideMultiToast:(UIView *)timer.userInfo];
 }
 
 - (void)handleToastTapped:(UITapGestureRecognizer *)recognizer {
