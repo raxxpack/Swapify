@@ -33,6 +33,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 @interface UIView (Toast)
 
 - (void)makeMultiToastBottomCentered:(NSString *)message duration:(NSTimeInterval)interval;
+- (void)showMultiToast:(UIView *)toast duration:(NSTimeInterval)interval position:(id)point;
 
 // each makeToast method creates a view and displays it as toast
 - (void)makeToast:(NSString *)message;

@@ -33,7 +33,6 @@
 	
 	self.title = @"Pixellator";
 	self.originalImage = self.imageView.image;
-	
 	[self.view makeMultiToastBottomCentered:@"Tap to pixellate faces!" duration:3.0];
 	
 }
@@ -75,9 +74,6 @@
 	if (!self.isPixellated) {
 		self.isPixellated = YES;
 		[self pixellateFaces:nil];
-		
-		
-		
 		[self.view makeMultiToastBottomCentered:@"Shake to restore." duration:3.0];
 	}
 }

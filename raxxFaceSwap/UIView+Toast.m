@@ -15,6 +15,8 @@
  *  DISPLAY DURATION, ETC.
  */
 
+
+
 // general appearance
 static const CGFloat CSToastMaxWidth            = 0.8;      // 80% of parent view width
 static const CGFloat CSToastMaxHeight           = 0.8;      // 80% of parent view height
@@ -53,6 +55,8 @@ static const BOOL CSToastHidesOnTap             = YES;     // excludes activity 
 static const NSString * CSToastTimerKey         = @"CSToastTimerKey";
 static const NSString * CSToastActivityViewKey  = @"CSToastActivityViewKey";
 
+static int multiToastCounter = 0;
+
 @interface UIView (ToastPrivate)
 
 - (void)hideToast:(UIView *)toast;
@@ -71,7 +75,8 @@ static const NSString * CSToastActivityViewKey  = @"CSToastActivityViewKey";
 
 - (void)makeMultiToastBottomCentered:(NSString *)message duration:(NSTimeInterval)interval {
 	
-	[self makeToast:message duration:interval position:CSToastDefaultPosition];
+	UIView *toast = [self viewForMessage:message title:nil image:nil];
+	[self showMultiToast:toast duration:interval position:CSToastDefaultPosition];
 }
 
 - (void)makeToast:(NSString *)message {
@@ -100,6 +105,17 @@ static const NSString * CSToastActivityViewKey  = @"CSToastActivityViewKey";
 
 - (void)showToast:(UIView *)toast {
     [self showToast:toast duration:CSToastDefaultDuration position:CSToastDefaultPosition];
+}
+
+- (void)showMultiToast:(UIView *)toast duration:(NSTimeInterval)interval position:(id)point {
+	
+	CGPoint newPoint = [self centerPointForPosition:point withToast:toast];
+	newPoint.y = newPoint.y - 42*multiToastCounter;
+	multiToastCounter++;
+	
+	NSValue *pointValue = [NSValue valueWithCGPoint:newPoint];
+	
+	[self showToast:toast duration:interval position:pointValue];
 }
 
 - (void)showToast:(UIView *)toast duration:(NSTimeInterval)duration position:(id)point {
