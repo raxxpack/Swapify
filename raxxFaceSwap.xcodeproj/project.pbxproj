@@ -12,6 +12,7 @@
 		5B06E6471911453700EEEE9E /* TWTSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E6461911453700EEEE9E /* TWTSideMenuViewController.m */; };
 		5B06E6491911495400EEEE9E /* galaxy.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B06E6481911495400EEEE9E /* galaxy.png */; };
 		5B06E64D1911533100EEEE9E /* SideMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E64C1911533100EEEE9E /* SideMenuTableViewCell.m */; };
+		5B06E65019116B0A00EEEE9E /* PixelatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E64F19116B0A00EEEE9E /* PixelatorViewController.m */; };
 		5BAC04B61899E52D00009CEB /* DashingYoungMan.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAC04B51899E52D00009CEB /* DashingYoungMan.jpg */; };
 		5BAC04B81899E70200009CEB /* SteveJobs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAC04B71899E70200009CEB /* SteveJobs.jpg */; };
 		5BC1F1FF1899785800E11A42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC1F1FE1899785800E11A42 /* Foundation.framework */; };
@@ -52,6 +53,8 @@
 		5B06E6481911495400EEEE9E /* galaxy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = galaxy.png; sourceTree = "<group>"; };
 		5B06E64B1911533100EEEE9E /* SideMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideMenuTableViewCell.h; sourceTree = "<group>"; };
 		5B06E64C1911533100EEEE9E /* SideMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideMenuTableViewCell.m; sourceTree = "<group>"; };
+		5B06E64E19116B0A00EEEE9E /* PixelatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelatorViewController.h; sourceTree = "<group>"; };
+		5B06E64F19116B0A00EEEE9E /* PixelatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PixelatorViewController.m; sourceTree = "<group>"; };
 		5BAC04B51899E52D00009CEB /* DashingYoungMan.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DashingYoungMan.jpg; sourceTree = "<group>"; };
 		5BAC04B71899E70200009CEB /* SteveJobs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SteveJobs.jpg; sourceTree = "<group>"; };
 		5BC1F1FB1899785800E11A42 /* raxxFaceSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = raxxFaceSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,6 +210,8 @@
 				5BC1F2331899790200E11A42 /* MarkViewController.m */,
 				5B06E64219113AAE00EEEE9E /* MenuViewController.h */,
 				5B06E64319113AAE00EEEE9E /* MenuViewController.m */,
+				5B06E64E19116B0A00EEEE9E /* PixelatorViewController.h */,
+				5B06E64F19116B0A00EEEE9E /* PixelatorViewController.m */,
 			);
 			name = Viewcontrollers;
 			sourceTree = "<group>";
@@ -325,6 +330,7 @@
 				5B06E64419113AAE00EEEE9E /* MenuViewController.m in Sources */,
 				5B06E641191138EC00EEEE9E /* UIImage+raxxFaceSwap.m in Sources */,
 				5B06E6471911453700EEEE9E /* TWTSideMenuViewController.m in Sources */,
+				5B06E65019116B0A00EEEE9E /* PixelatorViewController.m in Sources */,
 				5BC1F22F1899789A00E11A42 /* UIImage+raxxFaceDetection.m in Sources */,
 				5BC1F20B1899785800E11A42 /* main.m in Sources */,
 				5BC1F2341899790200E11A42 /* MarkViewController.m in Sources */,

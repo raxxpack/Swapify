@@ -49,13 +49,19 @@
 
 - (void)markFacesButtonPressed
 {
-    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[MarkViewController new]];
-    [self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
+	if (!([((UINavigationController*)self.sideMenuViewController.mainViewController).viewControllers[0] isKindOfClass:[MarkViewController class]])) {
+		
+		UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[MarkViewController new]];
+		[self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
+		
+	} else {
+		[self.sideMenuViewController closeMenuAnimated:YES completion:nil];
+	}
 }
 
 - (void)closeButtonPressed
 {
-    [self.sideMenuViewController closeMenuAnimated:YES completion:nil];
+	[self.sideMenuViewController closeMenuAnimated:YES completion:nil];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -86,19 +92,19 @@
 	if (cell == nil)
 	{
 		cell = [[SideMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-									   reuseIdentifier:menuCellIdentifier];
+											reuseIdentifier:menuCellIdentifier];
 		cell.backgroundColor = [UIColor clearColor];
 		cell.textLabel.textColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.95 alpha:0.95];
 		[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-
+		
 	}
 	
 	if (indexPath.row == 0) {
-		cell.textLabel.text = @"Close";
+		cell.textLabel.text = @"Return";
 	} else if (indexPath.row == 1) {
-		cell.textLabel.text = @"Detection";
+		cell.textLabel.text = @"Detector";
 	} else if (indexPath.row == 2) {
-		cell.textLabel.text = @"Pixelate";
+		cell.textLabel.text = @"Pixelator";
 	}
 	
 	return cell;
