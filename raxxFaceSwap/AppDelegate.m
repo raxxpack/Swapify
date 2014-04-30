@@ -8,6 +8,16 @@
 
 #import "AppDelegate.h"
 #import "MenuViewController.h"
+#import "MarkViewController.h"
+#import "TWTSideMenuViewController.h"
+
+@interface AppDelegate ()
+
+@property (nonatomic, strong) TWTSideMenuViewController *sideMenuViewController;
+@property (nonatomic, strong) MenuViewController *menuViewController;
+@property (nonatomic, strong) MarkViewController *mainViewController;
+
+@end
 
 @implementation AppDelegate
 
@@ -16,9 +26,16 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    MenuViewController *menuViewController = [[MenuViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
-    [[self window] setRootViewController:navController];
+	self.menuViewController = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
+    self.mainViewController = [[MarkViewController alloc] initWithNibName:nil bundle:nil];
+    
+    self.sideMenuViewController = [[TWTSideMenuViewController alloc] initWithMenuViewController:self.menuViewController mainViewController:[[UINavigationController alloc] initWithRootViewController:self.mainViewController]];
+    self.sideMenuViewController.shadowColor = [UIColor blackColor];
+    self.sideMenuViewController.edgeOffset = (UIOffset) { .horizontal = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 18.0f : 0.0f };
+    self.sideMenuViewController.zoomScale = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 0.5634f : 0.85f;
+    self.sideMenuViewController.delegate = self;
+    self.window.rootViewController = self.sideMenuViewController;
+
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

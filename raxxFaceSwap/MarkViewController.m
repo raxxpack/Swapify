@@ -8,6 +8,7 @@
 
 #import "MarkViewController.h"
 #import "UIImage+raxxFaceDetection.h"
+#import "TWTSideMenuViewController.h"
 
 @interface MarkViewController ()
 
@@ -25,7 +26,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
+		
     }
     return self;
 }
@@ -33,6 +34,8 @@
 - (void)viewDidLoad {
 	
 	[super viewDidLoad];
+	
+	self.view.backgroundColor = [UIColor whiteColor];
 	
 	self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 	self.tapGesture.delegate = self;
@@ -43,7 +46,7 @@
 	[self.view addSubview:self.scrollView];
 	
 	
-	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DashingYoungMan.jpg"]];
+	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SteveJobs.jpg"]];
 	self.imageView.frame = (CGRect) {
 		.origin = CGPointMake(self.imageView.frame.origin.x, 44),
 		.size = self.imageView.image.size
@@ -53,14 +56,20 @@
 	
 	self.markedAreasView = [[UIView alloc] init];
 	
-	UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
-							initWithTitle:@"Mark Faces" style:UIBarButtonItemStyleBordered target:self action:@selector(markFaces:)];
-	[[self navigationItem] setRightBarButtonItem:bbi];
-	UIBarButtonItem *leftButton =[[UIBarButtonItem alloc]
-								  initWithTitle:@"Pick Image" style:UIBarButtonItemStyleBordered target:self action:@selector(selectImage:)];
-	[[self navigationItem] setLeftBarButtonItem:leftButton];
+	//	UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
+	//							initWithTitle:@"Mark Faces" style:UIBarButtonItemStyleBordered target:self action:@selector(markFaces:)];
+	//	[[self navigationItem] setRightBarButtonItem:bbi];
+	UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
+    self.navigationItem.leftBarButtonItem = openItem;
+	UIBarButtonItem *rightButton =[[UIBarButtonItem alloc]
+								   initWithTitle:@"Pick Image" style:UIBarButtonItemStyleBordered target:self action:@selector(selectImage:)];
+	[[self navigationItem] setRightBarButtonItem:rightButton];
 	
 	
+}
+
+- (void)openButtonPressed {
+	[self.sideMenuViewController openMenuAnimated:YES completion:nil];
 }
 
 - (void)markFaces:(id)sender {
