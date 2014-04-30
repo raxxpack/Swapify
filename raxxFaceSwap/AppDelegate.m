@@ -10,6 +10,7 @@
 #import "MenuViewController.h"
 #import "MarkViewController.h"
 #import "TWTSideMenuViewController.h"
+#import "raxxWindow.h"
 
 @interface AppDelegate ()
 
@@ -23,7 +24,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[raxxWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
 	self.menuViewController = [[MenuViewController alloc] initWithNibName:nil bundle:nil];

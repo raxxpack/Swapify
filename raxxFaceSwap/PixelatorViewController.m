@@ -35,20 +35,22 @@
 	self.originalImage = self.imageView.image;
 	[self.view makeMultiToastBottomCentered:@"Tap to pixellate faces!" duration:3.0];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shakeNotification:)
+												 name:@"UIEventSubtypeMotionShakeEnded" object:nil];
+	
 }
 
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-	if (event.subtype == UIEventSubtypeMotionShake) {
-		
-		UIAlertView* alert;
-		
-		if (self.originalImage == self.imageView.image) {
-			alert = [[UIAlertView alloc] initWithTitle:@"Nothing to undo!" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-		} else {
-			alert = [[UIAlertView alloc] initWithTitle:@"Restore original image" message:@"Are you sure you want to restore the original image?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-		}
-		[alert show];
+
+- (void) shakeNotification:(id)sender {
+	UIAlertView* alert;
+	
+	if (self.originalImage == self.imageView.image) {
+		alert = [[UIAlertView alloc] initWithTitle:@"Nothing to undo!" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+	} else {
+		alert = [[UIAlertView alloc] initWithTitle:@"Restore original image" message:@"Are you sure you want to restore the original image?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
 	}
+	[alert show];
+	
 }
 
 - (BOOL)canBecomeFirstResponder {
@@ -76,6 +78,13 @@
 		[self pixellateFaces:nil];
 		[self.view makeMultiToastBottomCentered:@"Shake to restore." duration:3.0];
 	}
+}
+
+#pragma mark -- UIImagePicker Delegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	[super imagePickerController:picker didFinishPickingMediaWithInfo:info];
+	self.originalImage = self.imageView.image;
 }
 
 #pragma mark -- UIAlertView Delegate
