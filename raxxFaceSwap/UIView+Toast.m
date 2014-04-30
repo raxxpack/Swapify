@@ -69,6 +69,11 @@ static const NSString * CSToastActivityViewKey  = @"CSToastActivityViewKey";
 
 #pragma mark - Toast Methods
 
+- (void)makeMultiToastBottomCentered:(NSString *)message duration:(NSTimeInterval)interval {
+	
+	[self makeToast:message duration:interval position:CSToastDefaultPosition];
+}
+
 - (void)makeToast:(NSString *)message {
     [self makeToast:message duration:CSToastDefaultDuration position:CSToastDefaultPosition];
 }
