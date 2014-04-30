@@ -43,6 +43,7 @@
             [foundFaces addSubview:leftEyeView];
         }
         
+		
         if(faceFeature.hasRightEyePosition)
         {
             UIView* leftEye = [[UIView alloc] initWithFrame:CGRectMake(faceFeature.rightEyePosition.x-faceWidth*0.15, faceFeature.rightEyePosition.y-faceWidth*0.15, faceWidth*0.3, faceWidth*0.3)];
@@ -57,7 +58,7 @@
             UIView* mouth = [[UIView alloc] initWithFrame:CGRectMake(faceFeature.mouthPosition.x-faceWidth*0.2, faceFeature.mouthPosition.y-faceWidth*0.2, faceWidth*0.4, faceWidth*0.4)];
             [mouth setBackgroundColor:[[UIColor yellowColor] colorWithAlphaComponent:0.3]];
             [mouth setCenter:faceFeature.mouthPosition];
-            mouth.layer.cornerRadius = faceWidth*0.2;
+//            mouth.layer.cornerRadius = faceWidth*0.2;
             [foundFaces addSubview:mouth];
         }
 		
@@ -68,6 +69,5 @@
     
 	return foundFaces;
 }
-
 
 @end

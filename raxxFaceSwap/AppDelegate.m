@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MainViewController.h"
+#import "MenuViewController.h"
 
 @implementation AppDelegate
 
@@ -16,8 +16,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    MainViewController *mainViewController = [[MainViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    MenuViewController *menuViewController = [[MenuViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:menuViewController];
     [[self window] setRootViewController:navController];
     
     self.window.backgroundColor = [UIColor whiteColor];

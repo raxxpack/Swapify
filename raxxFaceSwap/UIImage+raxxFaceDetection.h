@@ -10,6 +10,10 @@
 
 @interface UIImage (raxxFaceDetection)
 
+
+/**
+ * Marks the faces in a UIImageView with a border and highlights eyes and mouth
+ */
 - (UIView*)markFaces:(UIImageView *)image; 
 
 @end
