@@ -14,6 +14,8 @@
 		5B06E64D1911533100EEEE9E /* SideMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E64C1911533100EEEE9E /* SideMenuTableViewCell.m */; };
 		5B06E65019116B0A00EEEE9E /* PixelatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E64F19116B0A00EEEE9E /* PixelatorViewController.m */; };
 		5B06E65319116EE900EEEE9E /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E65219116EE900EEEE9E /* EditorViewController.m */; };
+		5B06E6561911758D00EEEE9E /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E6551911758D00EEEE9E /* UIView+Toast.m */; };
+		5B06E6581911767600EEEE9E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B06E6571911767600EEEE9E /* QuartzCore.framework */; };
 		5BAC04B61899E52D00009CEB /* DashingYoungMan.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAC04B51899E52D00009CEB /* DashingYoungMan.jpg */; };
 		5BAC04B81899E70200009CEB /* SteveJobs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAC04B71899E70200009CEB /* SteveJobs.jpg */; };
 		5BC1F1FF1899785800E11A42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC1F1FE1899785800E11A42 /* Foundation.framework */; };
@@ -58,6 +60,9 @@
 		5B06E64F19116B0A00EEEE9E /* PixelatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PixelatorViewController.m; sourceTree = "<group>"; };
 		5B06E65119116EE900EEEE9E /* EditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorViewController.h; sourceTree = "<group>"; };
 		5B06E65219116EE900EEEE9E /* EditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorViewController.m; sourceTree = "<group>"; };
+		5B06E6541911758D00EEEE9E /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		5B06E6551911758D00EEEE9E /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		5B06E6571911767600EEEE9E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5BAC04B51899E52D00009CEB /* DashingYoungMan.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DashingYoungMan.jpg; sourceTree = "<group>"; };
 		5BAC04B71899E70200009CEB /* SteveJobs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SteveJobs.jpg; sourceTree = "<group>"; };
 		5BC1F1FB1899785800E11A42 /* raxxFaceSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = raxxFaceSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B06E6581911767600EEEE9E /* QuartzCore.framework in Frameworks */,
 				5BC1F2391899C8BD00E11A42 /* opencv2.framework in Frameworks */,
 				5BC1F2011899785800E11A42 /* CoreGraphics.framework in Frameworks */,
 				5BC1F2031899785800E11A42 /* UIKit.framework in Frameworks */,
@@ -140,6 +146,7 @@
 		5BC1F1FD1899785800E11A42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B06E6571911767600EEEE9E /* QuartzCore.framework */,
 				5BC1F2381899C8BD00E11A42 /* opencv2.framework */,
 				5BC1F1FE1899785800E11A42 /* Foundation.framework */,
 				5BC1F2001899785800E11A42 /* CoreGraphics.framework */,
@@ -200,6 +207,8 @@
 				5BC1F22E1899789A00E11A42 /* UIImage+raxxFaceDetection.m */,
 				5B06E63F191138EC00EEEE9E /* UIImage+raxxFaceSwap.h */,
 				5B06E640191138EC00EEEE9E /* UIImage+raxxFaceSwap.m */,
+				5B06E6541911758D00EEEE9E /* UIView+Toast.h */,
+				5B06E6551911758D00EEEE9E /* UIView+Toast.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -336,6 +345,7 @@
 				5B06E641191138EC00EEEE9E /* UIImage+raxxFaceSwap.m in Sources */,
 				5B06E65319116EE900EEEE9E /* EditorViewController.m in Sources */,
 				5B06E6471911453700EEEE9E /* TWTSideMenuViewController.m in Sources */,
+				5B06E6561911758D00EEEE9E /* UIView+Toast.m in Sources */,
 				5B06E65019116B0A00EEEE9E /* PixelatorViewController.m in Sources */,
 				5BC1F22F1899789A00E11A42 /* UIImage+raxxFaceDetection.m in Sources */,
 				5BC1F20B1899785800E11A42 /* main.m in Sources */,

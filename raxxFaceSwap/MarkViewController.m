@@ -9,6 +9,7 @@
 #import "MarkViewController.h"
 #import "UIImage+raxxFaceDetection.h"
 #import "TWTSideMenuViewController.h"
+#import "UIView+Toast.h"
 
 @interface MarkViewController ()
 
@@ -37,6 +38,8 @@
 	
 	self.view.backgroundColor = [UIColor whiteColor];
 	self.markedAreasView = [[UIView alloc] init];
+	
+	[self.view makeToast:@"Tap to detect faces!" duration:3.0 position:[NSValue valueWithCGPoint:CGPointMake(self.view.frame.origin.x + 160, self.view.frame.size.height - 30)]];
 	
 }
 

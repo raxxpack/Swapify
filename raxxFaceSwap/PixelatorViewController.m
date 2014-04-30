@@ -7,6 +7,7 @@
 //
 
 #import "PixelatorViewController.h"
+#import "UIImage+raxxFaceDetection.h"
 
 @interface PixelatorViewController ()
 
