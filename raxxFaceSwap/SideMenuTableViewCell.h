@@ -1,5 +1,5 @@
 //
-//  MainViewController.h
+//  SideMenuTableViewCell.h
 //  raxxFaceSwap
 //
 //  Created by Rahim Mitha on 2014-04-30.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface SideMenuTableViewCell : UITableViewCell
 
 @end
