@@ -17,6 +17,7 @@
 		5B06E6561911758D00EEEE9E /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E6551911758D00EEEE9E /* UIView+Toast.m */; };
 		5B06E6581911767600EEEE9E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B06E6571911767600EEEE9E /* QuartzCore.framework */; };
 		5B06E65B1911979E00EEEE9E /* raxxWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E65A1911979E00EEEE9E /* raxxWindow.m */; };
+		5B06E65D19119F5200EEEE9E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B06E65C19119F5200EEEE9E /* AssetsLibrary.framework */; };
 		5BAC04B81899E70200009CEB /* SteveJobs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAC04B71899E70200009CEB /* SteveJobs.jpg */; };
 		5BC1F1FF1899785800E11A42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC1F1FE1899785800E11A42 /* Foundation.framework */; };
 		5BC1F2011899785800E11A42 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC1F2001899785800E11A42 /* CoreGraphics.framework */; };
@@ -65,6 +66,7 @@
 		5B06E6571911767600EEEE9E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5B06E6591911979E00EEEE9E /* raxxWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = raxxWindow.h; sourceTree = "<group>"; };
 		5B06E65A1911979E00EEEE9E /* raxxWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = raxxWindow.m; sourceTree = "<group>"; };
+		5B06E65C19119F5200EEEE9E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5BAC04B71899E70200009CEB /* SteveJobs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SteveJobs.jpg; sourceTree = "<group>"; };
 		5BC1F1FB1899785800E11A42 /* raxxFaceSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = raxxFaceSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BC1F1FE1899785800E11A42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B06E65D19119F5200EEEE9E /* AssetsLibrary.framework in Frameworks */,
 				5B06E6581911767600EEEE9E /* QuartzCore.framework in Frameworks */,
 				5BC1F2391899C8BD00E11A42 /* opencv2.framework in Frameworks */,
 				5BC1F2011899785800E11A42 /* CoreGraphics.framework in Frameworks */,
@@ -149,6 +152,7 @@
 		5BC1F1FD1899785800E11A42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B06E65C19119F5200EEEE9E /* AssetsLibrary.framework */,
 				5B06E6571911767600EEEE9E /* QuartzCore.framework */,
 				5BC1F2381899C8BD00E11A42 /* opencv2.framework */,
 				5BC1F1FE1899785800E11A42 /* Foundation.framework */,
@@ -287,7 +291,7 @@
 		5BC1F1F31899785800E11A42 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Rahim Mitha";
 				TargetAttributes = {
 					5BC1F2151899785800E11A42 = {
@@ -398,7 +402,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -437,7 +440,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -503,7 +505,6 @@
 		5BC1F22B1899785800E11A42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/raxxFaceSwap.app/raxxFaceSwap";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -526,7 +527,6 @@
 		5BC1F22C1899785800E11A42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/raxxFaceSwap.app/raxxFaceSwap";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

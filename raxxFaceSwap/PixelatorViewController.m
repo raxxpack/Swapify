@@ -9,6 +9,7 @@
 #import "PixelatorViewController.h"
 #import "UIImage+raxxFaceDetection.h"
 #import "UIView+Toast.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface PixelatorViewController ()
 
@@ -77,6 +78,22 @@
 		self.isPixellated = YES;
 		[self pixellateFaces:nil];
 		[self.view makeMultiToastBottomCentered:@"Shake to restore." duration:3.0];
+	} else {
+		ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+		
+		if (status != ALAuthorizationStatusAuthorized) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Attention" message:@"Please give this app permission to access your photo library in your settings app!" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil, nil];
+			[alert show];
+		} else {
+			ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+			[lib writeImageToSavedPhotosAlbum:self.imageView.image.CGImage orientation:ALAssetOrientationDown completionBlock:^(NSURL *assetURL, NSError *error) {
+				if (error) {
+					NSLog(@"ERROR: Image failed to save. Error:%@", error);
+				} else {
+					NSLog(@"Photo saved at %@", assetURL);
+				}
+			}];
+		}
 	}
 }
 
@@ -85,6 +102,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[super imagePickerController:picker didFinishPickingMediaWithInfo:info];
 	self.originalImage = self.imageView.image;
+	self.isPixellated = NO;
 }
 
 #pragma mark -- UIAlertView Delegate

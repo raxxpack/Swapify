@@ -110,7 +110,7 @@ static int multiToastCounter = 0;
 - (void)showMultiToast:(UIView *)toast duration:(NSTimeInterval)interval position:(id)point {
 	
 	CGPoint newPoint = [self centerPointForPosition:point withToast:toast];
-	newPoint.y = newPoint.y - 42*multiToastCounter;
+	newPoint.y = newPoint.y - 42*multiToastCounter - 44.0f;
 	multiToastCounter++;
 	
     toast.center = newPoint;

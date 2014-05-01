@@ -39,8 +39,7 @@
 	self.view.backgroundColor = [UIColor whiteColor];
 	self.markedAreasView = [[UIView alloc] init];
 	
-	[self.view makeToast:@"Tap to detect faces!" duration:3.0 position:[NSValue valueWithCGPoint:CGPointMake(self.view.frame.origin.x + 160, self.view.frame.size.height - 30)]];
-	
+	[self.view makeMultiToastBottomCentered:@"Tap to detect faces!" duration:3.0];
 }
 
 - (void)markFaces:(id)sender {

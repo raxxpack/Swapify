@@ -8,6 +8,7 @@
 
 #import "EditorViewController.h"
 #import "TWTSideMenuViewController.h"
+#import "UIView+Toast.h"
 
 @interface EditorViewController ()
 
@@ -33,7 +34,9 @@
 	self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 	self.tapGesture.delegate = self;
 	
-	self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+	self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height - 44.0f)];
+	[self.scrollView setShowsHorizontalScrollIndicator:NO];
+	[self.scrollView setShowsVerticalScrollIndicator:NO];
 	self.scrollView.delegate = self;
 	[self.scrollView addGestureRecognizer:self.tapGesture];
 	[self.view addSubview:self.scrollView];
@@ -44,7 +47,7 @@
 		.origin = CGPointMake(self.imageView.frame.origin.x, 44),
 		.size = self.imageView.image.size
 	};
-	self.scrollView.contentSize = self.imageView.image.size;
+	self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
 	[self.scrollView addSubview:self.imageView];
 	
 	UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
@@ -54,7 +57,19 @@
 	
 	[[self navigationItem] setRightBarButtonItem:rightButton];
 	
+	[self initToolbar];
 	
+}
+
+- (void)initToolbar {
+	
+	UIBarButtonItem* undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoPressed:)];
+	UIBarButtonItem* shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePressed:)];
+	UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+	UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+	
+	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, undoButton, flexibleSpace, shareButton, fixedSpace, nil]];
+	self.navigationController.toolbarHidden = NO;
 }
 
 - (void)openButtonPressed {
@@ -74,6 +89,13 @@
 	[self presentViewController:imagePicker animated:YES completion:nil];
 }
 
+- (void)undoPressed:(id)sender {
+	
+}
+
+- (void)sharePressed:(id)sender {
+	
+}
 
 - (void)didReceiveMemoryWarning
 {
