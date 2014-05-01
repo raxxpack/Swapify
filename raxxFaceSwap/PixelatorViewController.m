@@ -83,7 +83,12 @@
 
 - (void)sharePressed:(id)sender {
 
-	UIActivityViewController* shareController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:self.imageView.image] applicationActivities: nil];
+	UIGraphicsBeginImageContext(self.imageView.bounds.size);
+	[self.imageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+	UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	
+	UIActivityViewController* shareController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:image] applicationActivities: nil];
 		[self presentViewController:shareController animated:YES completion:nil];
 }
 
