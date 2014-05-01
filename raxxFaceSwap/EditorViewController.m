@@ -65,10 +65,11 @@
 	
 	UIBarButtonItem* undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoPressed:)];
 	UIBarButtonItem* shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePressed:)];
+	UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editPressed:)];
 	UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
 	UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
 	
-	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, undoButton, flexibleSpace, shareButton, fixedSpace, nil]];
+	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, undoButton, flexibleSpace, editButton, flexibleSpace, shareButton, fixedSpace, nil]];
 	self.navigationController.toolbarHidden = NO;
 }
 
@@ -94,6 +95,10 @@
 }
 
 - (void)sharePressed:(id)sender {
+	
+}
+
+- (void)editPressed:(id)sender {
 	
 }
 
@@ -125,8 +130,6 @@
 }
 
 #pragma mark -- UIScrollView delegate methods
-
-
 
 
 @end
