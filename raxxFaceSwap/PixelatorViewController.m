@@ -9,7 +9,6 @@
 #import "PixelatorViewController.h"
 #import "UIImage+raxxFaceDetection.h"
 #import "UIView+Toast.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface PixelatorViewController ()
 
@@ -80,18 +79,6 @@
 		[self.view makeMultiToastBottomCentered:@"Shake to restore." duration:3.0];
 	}
 }
-
-- (void)sharePressed:(id)sender {
-
-	UIGraphicsBeginImageContext(self.imageView.bounds.size);
-	[self.imageView.layer renderInContext:UIGraphicsGetCurrentContext()];
-	UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	
-	UIActivityViewController* shareController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:image] applicationActivities: nil];
-		[self presentViewController:shareController animated:YES completion:nil];
-}
-
 
 #pragma mark -- UIImagePicker Delegate
 

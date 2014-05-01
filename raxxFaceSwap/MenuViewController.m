@@ -11,6 +11,10 @@
 #import "TWTSideMenuViewController.h"
 #import "SideMenuTableViewCell.h"
 #import "PixelatorViewController.h"
+#import "FaceSwapViewController.h"
+
+
+#define kNUMBER_OF_MENU_OPTIONS 4
 
 @interface MenuViewController ()
 
@@ -26,7 +30,7 @@
     
     self.view.backgroundColor = [UIColor grayColor];
     
-    self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"galaxy"]];
+    self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"asdfewdf"]];
     self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
     
     CGRect imageViewRect = [[UIScreen mainScreen] bounds];
@@ -39,7 +43,7 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[imageView]" options:0 metrics:nil views:viewDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[imageView]" options:0 metrics:nil views:viewDictionary]];
 	
-	self.menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44.0f, 200.0f, 44.0f * 3)];
+	self.menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44.0f, 200.0f, 44.0f * kNUMBER_OF_MENU_OPTIONS)];
 	self.menuTableView.backgroundColor = [UIColor clearColor];
 	self.menuTableView.dataSource = self;
 	self.menuTableView.delegate = self;
@@ -71,6 +75,17 @@
 	}
 }
 
+- (void)faceSwapButtonPressed {
+	if (!([((UINavigationController*)self.sideMenuViewController.mainViewController).viewControllers[0] isKindOfClass:[FaceSwapViewController class]])) {
+		
+		UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[FaceSwapViewController new]];
+		[self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
+		
+	} else {
+		[self.sideMenuViewController closeMenuAnimated:YES completion:nil];
+	}
+}
+
 - (void)closeButtonPressed
 {
 	[self.sideMenuViewController closeMenuAnimated:YES completion:nil];
@@ -89,7 +104,7 @@
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 3;
+	return kNUMBER_OF_MENU_OPTIONS;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	return 44.0f;
@@ -117,6 +132,8 @@
 		cell.textLabel.text = @"Detector";
 	} else if (indexPath.row == 2) {
 		cell.textLabel.text = @"Pixelator";
+	} else if (indexPath.row == 3) {
+		cell.textLabel.text = @"Face Swap";
 	}
 	
 	return cell;
@@ -129,6 +146,8 @@
 		[self markFacesButtonPressed];
 	} else if (indexPath.row == 2) {
 		[self pixelatorButtonPressed];
+	} else if (indexPath.row == 3) {
+		[self faceSwapButtonPressed];
 	}
 }
 
