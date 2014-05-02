@@ -147,7 +147,6 @@
 	UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	return newImage;
-	
 }
 
 - (void)sharePressed:(id)sender {

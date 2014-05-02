@@ -19,6 +19,7 @@
 		5B06E65B1911979E00EEEE9E /* raxxWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B06E65A1911979E00EEEE9E /* raxxWindow.m */; };
 		5B06E65D19119F5200EEEE9E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B06E65C19119F5200EEEE9E /* AssetsLibrary.framework */; };
 		5B07A60819140B2900085DB4 /* rotateToolbarButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B07A60719140B2900085DB4 /* rotateToolbarButton.png */; };
+		5B07A60A19144AF600085DB4 /* Screenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B07A60919144AF600085DB4 /* Screenshot.png */; };
 		5B0993011912A70F008C3185 /* Blurred-Background1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B0993001912A70F008C3185 /* Blurred-Background1.jpg */; };
 		5B0993031912A791008C3185 /* Blurred-Background2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 5B0993021912A791008C3185 /* Blurred-Background2.jpeg */; };
 		5B0993051912A829008C3185 /* Blurred-Background4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B0993041912A829008C3185 /* Blurred-Background4.jpg */; };
@@ -75,6 +76,7 @@
 		5B06E65A1911979E00EEEE9E /* raxxWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = raxxWindow.m; sourceTree = "<group>"; };
 		5B06E65C19119F5200EEEE9E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5B07A60719140B2900085DB4 /* rotateToolbarButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotateToolbarButton.png; sourceTree = "<group>"; };
+		5B07A60919144AF600085DB4 /* Screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot.png; sourceTree = "<group>"; };
 		5B0993001912A70F008C3185 /* Blurred-Background1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Blurred-Background1.jpg"; sourceTree = "<group>"; };
 		5B0993021912A791008C3185 /* Blurred-Background2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Blurred-Background2.jpeg"; sourceTree = "<group>"; };
 		5B0993041912A829008C3185 /* Blurred-Background4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Blurred-Background4.jpg"; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 		5BC1F23718999A3F00E11A42 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5B07A60919144AF600085DB4 /* Screenshot.png */,
 				5B07A60719140B2900085DB4 /* rotateToolbarButton.png */,
 				5BAC04B71899E70200009CEB /* SteveJobs.jpg */,
 				5B0993001912A70F008C3185 /* Blurred-Background1.jpg */,
@@ -356,6 +359,7 @@
 				5B0993091912A8BB008C3185 /* Blurred-Background6.jpg in Resources */,
 				5BC1F23618999A1200E11A42 /* facedetectionpic.jpg in Resources */,
 				5B0993051912A829008C3185 /* Blurred-Background4.jpg in Resources */,
+				5B07A60A19144AF600085DB4 /* Screenshot.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
