@@ -1,3 +1,3 @@
 raxxFaceSwap
 ============
-![ScreenShot]({http://puu.sh/8wB2d.png})
+![Screenshot](https://raw.githubusercontent.com/raxxpack/raxxFaceSwap/master/raxxFaceSwap/Screenshot.png)
