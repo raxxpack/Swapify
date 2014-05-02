@@ -54,9 +54,3 @@ static const NSString* kMOUTH_POSITION = @"MOUTH_POSITION";
 }
 
 @end
-
-/*
- * 1. Detect faces
- * 2. Get contours, angles 
- * 3. 
- */

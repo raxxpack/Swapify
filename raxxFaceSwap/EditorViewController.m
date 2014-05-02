@@ -12,6 +12,8 @@
 
 @interface EditorViewController ()
 
+@property (nonatomic, assign) BOOL isEditToolbarOpen;
+
 @end
 
 @implementation EditorViewController
@@ -69,8 +71,25 @@
 	UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
 	UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
 	
-	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, undoButton, flexibleSpace, editButton, flexibleSpace, shareButton, fixedSpace, nil]];
+	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, undoButton, flexibleSpace, editButton, flexibleSpace, shareButton, fixedSpace, nil] animated:YES];
 	self.navigationController.toolbarHidden = NO;
+}
+
+- (void)initEditToolbar {
+	
+	UIBarButtonItem* undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoPressed:)];
+	UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editPressed:)];
+	UIBarButtonItem* redoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRedo target:self action:@selector(redoPressed:)];
+	
+	//TODO:
+	//Need rotate icon
+//	UIBarButtonItem* rotateButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"asdf"] style:UIBarButtonItemStylePlain target:self action:@selector(rotatePressed:)];
+	UIBarButtonItem* rotateButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(rotatePressed:)];
+	
+	UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+	UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+	
+	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, undoButton, flexibleSpace, redoButton, flexibleSpace, rotateButton, flexibleSpace, fixedSpace, editButton, fixedSpace, nil] animated:YES];
 }
 
 - (void)openButtonPressed {
@@ -94,6 +113,43 @@
 	
 }
 
+- (void)redoPressed:(id)sender {
+	
+}
+
+- (void)rotatePressed:(id)sender {
+	
+	self.imageView.image = [self imageRotated];
+}
+
+- (UIImage *)imageRotated
+{
+	// calculate the size of the rotated view's containing box for our drawing space
+	UIView *rotatedViewBox = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.imageView.frame.size.width, self.imageView.frame.size.height)];
+	CGAffineTransform t = CGAffineTransformMakeRotation(M_PI/2);
+	rotatedViewBox.transform = t;
+	CGSize rotatedSize = rotatedViewBox.frame.size;
+	
+	// Create the bitmap context
+	UIGraphicsBeginImageContext(rotatedSize);
+	CGContextRef bitmap = UIGraphicsGetCurrentContext();
+	
+	// Move the origin to the middle of the image so we will rotate and scale around the center.
+	CGContextTranslateCTM(bitmap, rotatedSize.width/2, rotatedSize.height/2);
+	
+	//   // Rotate the image context
+	CGContextRotateCTM(bitmap, M_PI/2);
+	
+	// Now, draw the rotated/scaled image into the context
+	CGContextScaleCTM(bitmap, 1.0, -1.0);
+	CGContextDrawImage(bitmap, CGRectMake(-self.imageView.frame.size.width / 2, -self.imageView.frame.size.height / 2, self.imageView.frame.size.width, self.imageView.frame.size.height), [self.imageView.image CGImage]);
+	
+	UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return newImage;
+	
+}
+
 - (void)sharePressed:(id)sender {
 	
 	UIGraphicsBeginImageContext(self.imageView.bounds.size);
@@ -106,7 +162,13 @@
 }
 
 - (void)editPressed:(id)sender {
-	
+	if (self.isEditToolbarOpen) {
+		[self closeEditToolbar];
+		[self.navigationItem.rightBarButtonItem setEnabled:YES];
+	} else {
+		[self openEditToolbar];
+		[self.navigationItem.rightBarButtonItem setEnabled:NO];
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,7 +177,17 @@
 }
 
 - (void)handleTap:(id)sender {
+	
+}
 
+- (void)closeEditToolbar {
+	self.isEditToolbarOpen = NO;
+	[self initToolbar];
+}
+
+- (void)openEditToolbar {
+	self.isEditToolbarOpen = YES;
+	[self initEditToolbar];
 }
 
 #pragma mark -- UIImagePickerController delegate methods
