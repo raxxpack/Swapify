@@ -10,7 +10,7 @@
 
 @interface UIImage (raxxFaceSwap)
 
-//TODO: Implement faceSwap
-- (UIImage*)faceSwap:(NSArray*)faces forImage:(UIImage*)image;
+
+- (NSArray*)swapFacesforImage:(UIImage*)image;
 
 @end

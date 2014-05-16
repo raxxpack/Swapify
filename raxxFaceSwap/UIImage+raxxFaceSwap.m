@@ -11,12 +11,12 @@
 static const NSString* kLEFT_EYE_POSITION = @"LEFT_EYE_POSITION";
 static const NSString* kRIGHT_EYE_POSITION = @"RIGHT_EYE_POSITION";
 static const NSString* kMOUTH_POSITION = @"MOUTH_POSITION";
+static const NSString* kANGLE = @"FACE_ANGLE";
 
 @implementation UIImage (raxxFaceSwap)
 
-- (UIImage*)faceSwap:(NSArray*)faces forImage:(UIImage*)image {
-	
-	//Detect Faces
+- (NSArray*)swapFacesforImage:(UIImage*)image {
+
 	CIImage *myImage = [CIImage imageWithCGImage:[image CGImage]];
 	NSNumber *orientation = [NSNumber numberWithInt:[image imageOrientation]+1];
 	
@@ -27,6 +27,25 @@ static const NSString* kMOUTH_POSITION = @"MOUTH_POSITION";
 	opts = [NSDictionary dictionaryWithObject:orientation forKey:CIDetectorImageOrientation];
 	NSArray *features = [detector featuresInImage:myImage options:opts];
 	
+    if (features.count >= 2) {
+        CIFaceFeature* faceFeature1 = [features objectAtIndex:0];
+        CIFaceFeature* faceFeature2 = [features objectAtIndex:1];
+        
+        CGRect faceRect1 = [self getRectForFace:faceFeature1];
+        CGRect faceRect2 = [self getRectForFace:faceFeature2];
+        
+        CIImage* faceImage1 = [CIImage imageWithCGImage:[image CGImage]];
+        faceImage1 = [faceImage1 imageByCroppingToRect:faceRect1];
+        
+        CIImage* faceImage2 = [CIImage imageWithCGImage:[image CGImage]];
+        faceImage2 = [faceImage2 imageByCroppingToRect:faceRect2];
+        
+        
+    }
+    
+    
+    
+    
 	NSMutableArray* facesArray = [[NSMutableArray alloc] init];
 	
 	for (CIFaceFeature* faceFeature in features) {
@@ -42,15 +61,24 @@ static const NSString* kMOUTH_POSITION = @"MOUTH_POSITION";
 		if (faceFeature.hasMouthPosition) {
 			[face setObject:[NSValue valueWithCGPoint:faceFeature.mouthPosition] forKey:kMOUTH_POSITION];
 		}
+        if (faceFeature.hasFaceAngle) {
+            [face setObject: [NSNumber numberWithFloat:faceFeature.faceAngle] forKey:kANGLE];
+        }
 		
+        
 		[facesArray addObject:face];
 	}
-	
-	//TODO:
-	//At this point we have all of the faces and their features in facesArray
-	//Need to get the contours (somehow)
-	
-	return nil;
+    return nil;
+}
+
+- (CGRect)getRectForFace:(CIFaceFeature*)face {
+    
+    CGFloat minX = MIN(MIN(face.leftEyePosition.x, face.rightEyePosition.x), face.mouthPosition.x);
+    CGFloat minY = MIN(MIN(face.leftEyePosition.y, face.rightEyePosition.y), face.mouthPosition.y);
+    CGFloat maxX = MAX(MAX(face.leftEyePosition.x, face.rightEyePosition.x), face.mouthPosition.x);
+    CGFloat maxY = MAX(MAX(face.leftEyePosition.y, face.rightEyePosition.y), face.mouthPosition.y);
+    
+    return CGRectMake(minX, minY, maxX - minX, maxY - minY);
 }
 
 @end
