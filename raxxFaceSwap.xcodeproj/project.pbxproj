@@ -43,6 +43,7 @@
 		5BC1F22F1899789A00E11A42 /* UIImage+raxxFaceDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1F22E1899789A00E11A42 /* UIImage+raxxFaceDetection.m */; };
 		5BC1F2341899790200E11A42 /* MarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1F2331899790200E11A42 /* MarkViewController.m */; };
 		5BC1F23618999A1200E11A42 /* facedetectionpic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BC1F23518999A1200E11A42 /* facedetectionpic.jpg */; };
+		C9C847D0192B910100BF9CAA /* faceSwapTest.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C9C847CF192B910100BF9CAA /* faceSwapTest.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		5BC1F2321899790200E11A42 /* MarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkViewController.h; sourceTree = "<group>"; };
 		5BC1F2331899790200E11A42 /* MarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkViewController.m; sourceTree = "<group>"; };
 		5BC1F23518999A1200E11A42 /* facedetectionpic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = facedetectionpic.jpg; sourceTree = "<group>"; };
+		C9C847CF192B910100BF9CAA /* faceSwapTest.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = faceSwapTest.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 		5BC1F23718999A3F00E11A42 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9C847CF192B910100BF9CAA /* faceSwapTest.jpg */,
 				5B07A60919144AF600085DB4 /* Screenshot.png */,
 				5B07A60719140B2900085DB4 /* rotateToolbarButton.png */,
 				5BAC04B71899E70200009CEB /* SteveJobs.jpg */,
@@ -349,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BAC04B81899E70200009CEB /* SteveJobs.jpg in Resources */,
+				C9C847D0192B910100BF9CAA /* faceSwapTest.jpg in Resources */,
 				5B07A60819140B2900085DB4 /* rotateToolbarButton.png in Resources */,
 				5B06E6491911495400EEEE9E /* galaxy.png in Resources */,
 				5BC1F2091899785800E11A42 /* InfoPlist.strings in Resources */,

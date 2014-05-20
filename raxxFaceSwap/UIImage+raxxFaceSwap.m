@@ -15,10 +15,10 @@ static const NSString* kANGLE = @"FACE_ANGLE";
 
 @implementation UIImage (raxxFaceSwap)
 
-- (NSArray*)swapFacesforImage:(UIImage*)image {
+- (UIImage*)swapFaces {
 
-	CIImage *myImage = [CIImage imageWithCGImage:[image CGImage]];
-	NSNumber *orientation = [NSNumber numberWithInt:[image imageOrientation]+1];
+	CIImage *myImage = [CIImage imageWithCGImage:[self CGImage]];
+	NSNumber *orientation = [NSNumber numberWithInt:[self imageOrientation]+1];
 	
 	CIContext *context = [CIContext contextWithOptions:nil];
 	NSDictionary *opts = [NSDictionary dictionaryWithObject:CIDetectorAccuracyHigh forKey:CIDetectorAccuracy];
@@ -31,43 +31,38 @@ static const NSString* kANGLE = @"FACE_ANGLE";
         CIFaceFeature* faceFeature1 = [features objectAtIndex:0];
         CIFaceFeature* faceFeature2 = [features objectAtIndex:1];
         
-        CGRect faceRect1 = [self getRectForFace:faceFeature1];
-        CGRect faceRect2 = [self getRectForFace:faceFeature2];
+        CGRect faceRect1 = faceFeature1.bounds;
+        CGRect faceRect2 = faceFeature2.bounds;
         
-        CIImage* faceImage1 = [CIImage imageWithCGImage:[image CGImage]];
+        CGRect temp1 = faceFeature1.bounds;
+        CGRect temp2 = faceFeature2.bounds;
+        
+        CIImage* faceImage1 = [CIImage imageWithCGImage:[self CGImage]];
         faceImage1 = [faceImage1 imageByCroppingToRect:faceRect1];
         
-        CIImage* faceImage2 = [CIImage imageWithCGImage:[image CGImage]];
+        CIImage* faceImage2 = [CIImage imageWithCGImage:[self CGImage]];
         faceImage2 = [faceImage2 imageByCroppingToRect:faceRect2];
         
+        //Face 1 divide by scale, Face 2 multiply by scale
+        CGFloat scale = MIN(faceRect1.size.width/faceRect2.size.width, faceRect1.size.height/faceRect2.size.height);
+
+        faceRect1.origin = CGPointMake(temp2.origin.x, self.size.height - CGRectGetMaxY(temp2));
+        UIImage* face1UIImage = [UIImage imageWithCIImage:faceImage1 scale:1/scale orientation:UIImageOrientationUp];
         
+        faceRect2.origin = CGPointMake(temp1.origin.x, self.size.height - CGRectGetMaxY(temp1));
+        UIImage* face2UIImage = [UIImage imageWithCIImage:faceImage2 scale:scale orientation:UIImageOrientationUp];
+        
+        
+        //TODO: Circular mask -> clear out background
+        
+        
+        UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
+        [self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
+        [face1UIImage drawInRect:faceRect1];
+        [face2UIImage drawInRect:faceRect2];
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        return newImage;
     }
-    
-    
-    
-    
-	NSMutableArray* facesArray = [[NSMutableArray alloc] init];
-	
-	for (CIFaceFeature* faceFeature in features) {
-		
-		NSMutableDictionary* face = [[NSMutableDictionary alloc] init];
-		
-		if (faceFeature.hasLeftEyePosition) {
-			[face setObject: [NSValue valueWithCGPoint: faceFeature.leftEyePosition] forKey:kLEFT_EYE_POSITION];
-		}
-		if (faceFeature.hasRightEyePosition) {
-			[face setObject:[NSValue valueWithCGPoint:faceFeature.rightEyePosition] forKey:kRIGHT_EYE_POSITION];
-		}
-		if (faceFeature.hasMouthPosition) {
-			[face setObject:[NSValue valueWithCGPoint:faceFeature.mouthPosition] forKey:kMOUTH_POSITION];
-		}
-        if (faceFeature.hasFaceAngle) {
-            [face setObject: [NSNumber numberWithFloat:faceFeature.faceAngle] forKey:kANGLE];
-        }
-		
-        
-		[facesArray addObject:face];
-	}
     return nil;
 }
 

@@ -11,6 +11,6 @@
 @interface UIImage (raxxFaceSwap)
 
 
-- (NSArray*)swapFacesforImage:(UIImage*)image;
+- (UIImage*)swapFaces;
 
 @end

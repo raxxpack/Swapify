@@ -30,7 +30,13 @@
     [super viewDidLoad];
 	
 	self.title = @"Face Swap!";
+    
+    self.imageView.image = [UIImage imageNamed:@"faceSwapTest.jpg"];
+    
+    self.imageView.image = [self.imageView.image swapFaces];
+    self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.image.size.width, self.imageView.image.size.width);
 
+    	self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
 }
 
 - (void)didReceiveMemoryWarning
