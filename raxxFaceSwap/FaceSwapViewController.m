@@ -33,10 +33,9 @@
     
     self.imageView.image = [UIImage imageNamed:@"faceSwapTest.jpg"];
     
-    self.imageView.image = [self.imageView.image swapFaces];
     self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.image.size.width, self.imageView.image.size.width);
 
-    	self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,5 +43,24 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)faceSwap:(id)sender {
+	self.imageView.image = [self.imageView.image swapFaces];
+}
+
+- (void)handleTap:(id)sender {
+    [self faceSwap:nil];
+}
+
+
+#pragma mark -- UIImagePickerController delegate methods
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	
+	[super imagePickerController:picker didFinishPickingMediaWithInfo:info];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+	[super imagePickerControllerDidCancel:picker];
+}
 
 @end
