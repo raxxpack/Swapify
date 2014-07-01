@@ -9,5 +9,7 @@
 #import "EditorViewController.h"
 
 @interface FaceSwapViewController : EditorViewController
+{
 
+}
 @end

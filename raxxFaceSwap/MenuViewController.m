@@ -12,9 +12,10 @@
 #import "SideMenuTableViewCell.h"
 #import "PixelatorViewController.h"
 #import "FaceSwapViewController.h"
+#import "MaskViewController.h"
 
 
-#define kNUMBER_OF_MENU_OPTIONS 4
+#define kNUMBER_OF_MENU_OPTIONS 5
 
 @interface MenuViewController ()
 
@@ -86,6 +87,13 @@
 	}
 }
 
+- (void)test {
+
+    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[MaskViewController new]];
+    [self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
+
+}
+
 - (void)closeButtonPressed
 {
 	[self.sideMenuViewController closeMenuAnimated:YES completion:nil];
@@ -134,6 +142,8 @@
 		cell.textLabel.text = @"Pixelator";
 	} else if (indexPath.row == 3) {
 		cell.textLabel.text = @"Face Swap";
+	} else if (indexPath.row == 4) {
+		cell.textLabel.text = @"Test";
 	}
 	
 	return cell;
@@ -148,6 +158,8 @@
 		[self pixelatorButtonPressed];
 	} else if (indexPath.row == 3) {
 		[self faceSwapButtonPressed];
+	} else if (indexPath.row == 4) {
+		[self test];
 	}
 }
 
