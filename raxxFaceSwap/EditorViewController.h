@@ -15,4 +15,6 @@
 @property (nonatomic, strong) UITapGestureRecognizer* tapGesture;
 @property (nonatomic, strong) UIToolbar* bottomToolbar;
 
+@property (nonatomic, assign) BOOL isEditToolbarOpen;
+
 @end

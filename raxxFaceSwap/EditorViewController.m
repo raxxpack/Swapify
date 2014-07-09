@@ -12,8 +12,6 @@
 
 @interface EditorViewController ()
 
-@property (nonatomic, assign) BOOL isEditToolbarOpen;
-
 @end
 
 @implementation EditorViewController

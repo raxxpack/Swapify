@@ -7,14 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EditorViewController.h"
 
-@interface MaskViewController : UIViewController <UIGestureRecognizerDelegate>
-{
-    UIButton *btnEdit;
-    BOOL isEditing;
-    UIImageView *displayImage;
-    UIImageView *photoView;
-    UIImageView *maskView;
-}
+@interface MaskViewController : EditorViewController <UIGestureRecognizerDelegate, UIScrollViewDelegate>
+
 
 @end

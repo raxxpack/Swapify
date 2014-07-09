@@ -31,7 +31,7 @@
     
     self.view.backgroundColor = [UIColor grayColor];
     
-    self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"asdf"]];
+    self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"galaxy"]];
     self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
     
     CGRect imageViewRect = [[UIScreen mainScreen] bounds];

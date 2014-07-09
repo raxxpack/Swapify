@@ -38,42 +38,13 @@
 	
 	self.title = @"Face Swap!";
     self.view.backgroundColor = [UIColor whiteColor];
+
     
-    photoView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"faceSwapTest.jpg"]];
-    photoView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, photoView.image.size.width, photoView.image.size.width);
-    photoView.hidden = YES;
+    self.imageView.image = [UIImage imageNamed:@"faceSwapTest.jpg"];
     
-    maskOne = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    [maskOne setImage:[UIImage imageNamed:@"facemask.png"]];
-    maskOne.hidden = YES;
-  
-    maskTwo = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    [maskTwo setImage:[UIImage imageNamed:@"facemask.png"]];
-    maskTwo.hidden = YES;
-    
-    displayImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
-    
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-    panGesture.delegate = self;
-    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
-    pinchGesture.delegate = self;
-    
-    [maskOne addGestureRecognizer:panGesture];
-    [maskTwo addGestureRecognizer:panGesture];
-    [maskOne addGestureRecognizer:pinchGesture];
-    [maskTwo addGestureRecognizer:pinchGesture];
-    [maskOne setUserInteractionEnabled:YES];
-    [maskTwo setUserInteractionEnabled:YES];
-    
-    [self.view addSubview:maskOne];
-    [self.view addSubview:maskTwo];
-    [self.view addSubview:photoView];
-    
-//    self.imageView.image = [UIImage imageNamed:@"faceSwapTest.jpg"];
-//    
-//    self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.image.size.width, self.imageView.image.size.width);
-//
-//    self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
+    self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.image.size.width, self.imageView.image.size.width);
+
+    self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
     
     
 }

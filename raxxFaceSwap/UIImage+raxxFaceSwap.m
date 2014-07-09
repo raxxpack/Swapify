@@ -41,11 +41,9 @@ static const NSString* kANGLE = @"FACE_ANGLE";
         
         CIImage* faceImage1 = [CIImage imageWithCGImage:[self CGImage]];
         faceImage1 = [faceImage1 imageByCroppingToRect:faceRect1];
-//        faceImage1 = [self getMaskImage:faceFeature1];
         
         CIImage* faceImage2 = [CIImage imageWithCGImage:[self CGImage]];
         faceImage2 = [faceImage2 imageByCroppingToRect:faceRect2];
-//        faceImage2 = [self getMaskImage:faceFeature2];
         
         //Face 1 divide by scale, Face 2 multiply by scale
         CGFloat scale = MIN(faceRect1.size.width/faceRect2.size.width, faceRect1.size.height/faceRect2.size.height);
@@ -62,36 +60,51 @@ static const NSString* kANGLE = @"FACE_ANGLE";
         UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0);
         [self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
         
+		face1UIImage = [self cropToCircle:face1UIImage andRect:faceRect1];
+		face2UIImage = [self cropToCircle:face2UIImage andRect:faceRect2];
+		
 //        //TODO: Circular mask -> clear out background
         CGContextRef contextRef = UIGraphicsGetCurrentContext();
-//        CGContextSaveGState(contextRef);
-//        
-//        CGFloat imageCenterX = faceRect1.size.width/2;
-//        CGFloat imageCenterY = faceRect1.size.height/2;
-//        CGContextBeginPath(contextRef);
-//        CGContextAddArc(contextRef, imageCenterX, imageCenterY, faceRect1.size.width/2, 0, 2*M_PI, 0);
-//        CGContextClosePath(contextRef);
-//        CGContextClip(contextRef);
-//
-//        CGContextRestoreGState(contextRef);
+		
         
         CGContextSaveGState(contextRef);
         CGContextSetBlendMode(contextRef,kCGBlendModeDestinationIn);
-        CGContextFillEllipseInRect(contextRef,faceRect1);
+		
+		//here
         
         [face1UIImage drawInRect:faceRect1];
         [face2UIImage drawInRect:faceRect2];
         
         UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
         
-                CGContextRestoreGState(contextRef);
+		CGContextRestoreGState(contextRef);
         
         return newImage;
     }
     return nil;
 }
 
-- (CIImage*)getMaskImage:(CIFaceFeature*)f{
+- (UIImage*)cropToCircle:(UIImage*)face andRect:(CGRect)imageRect {
+	
+	imageRect = CGRectMake(0, 0, imageRect.size.width, imageRect.size.height);
+	UIGraphicsBeginImageContextWithOptions(face.size, NO, 0.0);
+	CGContextRef ctx = UIGraphicsGetCurrentContext();
+	UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:imageRect];
+	[path addClip];
+	[face drawInRect:imageRect];
+	
+	CGContextSetStrokeColorWithColor(ctx, [[UIColor clearColor] CGColor]);
+	[path setLineWidth:2.0];
+	[path stroke];
+	
+	UIImage* roundedImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return roundedImage;
+}
+
+
+- (CIImage*)getMaskImage:(CIFaceFeature*)f
+{
     
 	CIImage* maskImage = nil;
     
