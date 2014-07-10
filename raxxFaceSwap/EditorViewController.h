@@ -17,4 +17,6 @@
 
 @property (nonatomic, assign) BOOL isEditToolbarOpen;
 
+- (void)editButtonPressed;
+
 @end

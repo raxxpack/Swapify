@@ -168,6 +168,16 @@
 	}
 }
 
+- (void)editButtonPressed {
+	if (self.isEditToolbarOpen) {
+		[self closeEditToolbar];
+		[self.navigationItem.rightBarButtonItem setEnabled:YES];
+	} else {
+		[self openEditToolbar];
+		[self.navigationItem.rightBarButtonItem setEnabled:NO];
+	}
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

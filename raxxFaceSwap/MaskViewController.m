@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) UIImageView* face1ImageView;
 @property (nonatomic, strong) UIImageView* face2ImageView;
+@property (nonatomic, strong) UIView* tapOverView;
+@property (assign) BOOL isTapOverViewShowing;
 
 @end
 
@@ -22,7 +24,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-		
+		self.title = @"Face Swap!";
     }
     return self;
 }
@@ -30,6 +32,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shakeNotification:)
+												 name:@"UIEventSubtypeMotionShakeEnded" object:nil];
 	
 	self.view.backgroundColor = [UIColor whiteColor];
 	self.imageView.image = [UIImage imageNamed:@"faceSwapTest.jpg"];
@@ -47,7 +52,18 @@
 	pan.delegate = self;
 	UIRotationGestureRecognizer* rotate = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotated:)];
 	rotate.delegate = self;
+	
+	UITapGestureRecognizer* tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+	tap2.delegate = self;
+	UIPinchGestureRecognizer* pinch2 = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinched:)];
+	pinch2.delegate = self;
+	UIPanGestureRecognizer* pan2 = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
+	pan2.delegate = self;
+	UIRotationGestureRecognizer* rotate2 = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotated:)];
+	rotate2.delegate = self;
 
+	self.tapOverView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, self.scrollView.contentSize.width, self.scrollView.contentSize.height)];
+	self.tapOverView.backgroundColor = [UIColor colorWithWhite:0.1	alpha:0.7 ];
 	
 	self.face1ImageView = [[UIImageView alloc] init];
 	self.face1ImageView.userInteractionEnabled = NO;
@@ -59,38 +75,85 @@
 	
 	self.face2ImageView = [[UIImageView alloc] init];
 	self.face2ImageView.userInteractionEnabled = NO;
-	[self.face2ImageView addGestureRecognizer:pinch];
-	[self.face2ImageView addGestureRecognizer:tap];
-	[self.face2ImageView addGestureRecognizer:pan];
-	[self.face2ImageView addGestureRecognizer:rotate];
+	[self.face2ImageView addGestureRecognizer:pinch2];
+	[self.face2ImageView addGestureRecognizer:tap2];
+	[self.face2ImageView addGestureRecognizer:pan2];
+	[self.face2ImageView addGestureRecognizer:rotate2];
 	[self.scrollView addSubview:self.face2ImageView];
 	
-	[self getFaces];
 }
 
-//- (void)editPressed:(id)sender {
-//	if (self.isEditToolbarOpen) {
-//		self.face1ImageView.userInteractionEnabled = YES;
-//		self.face2ImageView.userInteractionEnabled = YES;
-//	} else {
-//		self.face1ImageView.userInteractionEnabled = NO;
-//		self.face2ImageView.userInteractionEnabled = NO;
-//	}
-//}
+- (void)editPressed:(id)sender {
+	[super editButtonPressed];
+	if (self.isEditToolbarOpen) {
+		self.face1ImageView.userInteractionEnabled = YES;
+		self.face2ImageView.userInteractionEnabled = YES;
+		self.scrollView.scrollEnabled = NO;
+	} else {
+		self.face1ImageView.userInteractionEnabled = NO;
+		self.face2ImageView.userInteractionEnabled = NO;
+		self.scrollView.scrollEnabled = YES;
+		[self.tapOverView removeFromSuperview];
+		self.isTapOverViewShowing = NO;
+	}
+}
 
 
 #pragma mark - Gesture Recognizer Methods
 
-- (void)pinched:(id)sender {
+typedef enum {
+    PinchAxisNone,
+    PinchAxisHorizontal,
+    PinchAxisVertical
+} PinchAxis;
+
+PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
+    UIView *view = r.view;
+    CGPoint touch0 = [r locationOfTouch:0 inView:view];
+    CGPoint touch1 = [r locationOfTouch:1 inView:view];
+    CGFloat tangent = fabsf((touch1.y - touch0.y) / (touch1.x - touch0.x));
+    return
+	tangent <= 0.2679491924f ? PinchAxisHorizontal // 15 degrees
+	: tangent >= 3.7320508076f ? PinchAxisVertical   // 75 degrees
+	: PinchAxisNone;
+}
+
+- (void)pinched:(UIPinchGestureRecognizer*)sender {
 	
+	if (self.isTapOverViewShowing) {
+		if (pinchGestureRecognizerAxis(sender) == PinchAxisVertical) {
+			sender.view.transform = CGAffineTransformScale(sender.view.transform, 1, sender.scale);
+		} else if (pinchGestureRecognizerAxis(sender) == PinchAxisHorizontal) {
+			sender.view.transform = CGAffineTransformScale(sender.view.transform, sender.scale, 1);
+		} else {
+			sender.view.transform = CGAffineTransformScale(sender.view.transform, sender.scale, sender.scale);
+		}
+		
+		sender.scale = 1;
+	}
 }
 
 - (void)tapped:(id)sender {
-
+	UIImageView* imageView = (UIImageView*)((UITapGestureRecognizer*)sender).view;
+	
+	if (self.isTapOverViewShowing) {
+		[self.tapOverView removeFromSuperview];
+		self.isTapOverViewShowing = NO;
+	} else {
+		[self.scrollView addSubview:self.tapOverView];
+		[self.scrollView bringSubviewToFront:imageView];
+		self.isTapOverViewShowing = YES;
+	}
 }
 
-- (void)panned:(id)sender {
+- (void)panned:(UIPanGestureRecognizer*)sender {
 	
+	if (self.isTapOverViewShowing) {
+		CGPoint translation = [sender translationInView:self.view];
+		NSLog(@"%f %f", translation.x, translation.y);
+		sender.view.center = CGPointMake(sender.view.center.x + translation.x, sender.view.center.y + translation.y);
+		[sender setTranslation:CGPointZero inView:self.view];
+	}
 }
 
 - (void)rotated:(id)sender {
@@ -99,6 +162,10 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
 	return YES;
+}
+
+- (void) shakeNotification:(id)sender {
+	[self getFaces];
 }
 
 #pragma mark - Face Swap Methods
@@ -181,6 +248,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	
 	[super imagePickerController:picker didFinishPickingMediaWithInfo:info];
+	self.tapOverView.frame = CGRectMake(0, 40, self.scrollView.contentSize.width, self.scrollView.contentSize.height);
 	self.face1ImageView.image = nil;
 	self.face2ImageView.image = nil;
 	[self getFaces];
