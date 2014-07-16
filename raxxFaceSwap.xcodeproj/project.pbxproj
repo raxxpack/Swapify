@@ -26,6 +26,7 @@
 		5B0993071912A863008C3185 /* Blurred-Background5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B0993061912A863008C3185 /* Blurred-Background5.jpg */; };
 		5B0993091912A8BB008C3185 /* Blurred-Background6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B0993081912A8BB008C3185 /* Blurred-Background6.jpg */; };
 		5B09930C1912A9E5008C3185 /* FaceSwapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B09930B1912A9E5008C3185 /* FaceSwapViewController.m */; };
+		5B0F477B1976D3F80090893E /* ImageBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0F477A1976D3F80090893E /* ImageBrowserViewController.m */; };
 		5B5395631918423D00D20FE2 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5395621918423D00D20FE2 /* opencv2.framework */; };
 		5BAC04B81899E70200009CEB /* SteveJobs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAC04B71899E70200009CEB /* SteveJobs.jpg */; };
 		5BC1F1FF1899785800E11A42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC1F1FE1899785800E11A42 /* Foundation.framework */; };
@@ -87,6 +88,8 @@
 		5B0993081912A8BB008C3185 /* Blurred-Background6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Blurred-Background6.jpg"; sourceTree = "<group>"; };
 		5B09930A1912A9E5008C3185 /* FaceSwapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceSwapViewController.h; sourceTree = "<group>"; };
 		5B09930B1912A9E5008C3185 /* FaceSwapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceSwapViewController.m; sourceTree = "<group>"; };
+		5B0F47791976D3F80090893E /* ImageBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserViewController.h; sourceTree = "<group>"; };
+		5B0F477A1976D3F80090893E /* ImageBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBrowserViewController.m; sourceTree = "<group>"; };
 		5B5395621918423D00D20FE2 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		5BAC04B71899E70200009CEB /* SteveJobs.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SteveJobs.jpg; sourceTree = "<group>"; };
 		5BC1F1FB1899785800E11A42 /* raxxFaceSwap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = raxxFaceSwap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -261,6 +264,8 @@
 				5B09930B1912A9E5008C3185 /* FaceSwapViewController.m */,
 				C9B11D031962F858009D1092 /* MaskViewController.h */,
 				C9B11D041962F858009D1092 /* MaskViewController.m */,
+				5B0F47791976D3F80090893E /* ImageBrowserViewController.h */,
+				5B0F477A1976D3F80090893E /* ImageBrowserViewController.m */,
 			);
 			name = Viewcontrollers;
 			sourceTree = "<group>";
@@ -395,6 +400,7 @@
 				5B06E64419113AAE00EEEE9E /* MenuViewController.m in Sources */,
 				5B06E65B1911979E00EEEE9E /* raxxWindow.m in Sources */,
 				5B06E641191138EC00EEEE9E /* UIImage+raxxFaceSwap.m in Sources */,
+				5B0F477B1976D3F80090893E /* ImageBrowserViewController.m in Sources */,
 				5B09930C1912A9E5008C3185 /* FaceSwapViewController.m in Sources */,
 				5B06E65319116EE900EEEE9E /* EditorViewController.m in Sources */,
 				5B06E6471911453700EEEE9E /* TWTSideMenuViewController.m in Sources */,

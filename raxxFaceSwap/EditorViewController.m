@@ -29,7 +29,7 @@
 	
 	[super viewDidLoad];
 	
-	self.view.backgroundColor = [UIColor whiteColor];
+	self.view.backgroundColor = [UIColor blackColor];
 	
 	self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 	self.tapGesture.delegate = self;
@@ -63,31 +63,31 @@
 
 - (void)initToolbar {
 	
-	UIBarButtonItem* undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoPressed:)];
+	self.navigationController.toolbar.tintColor = [UIColor blackColor];
+	
 	UIBarButtonItem* shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePressed:)];
 	UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editPressed:)];
 	UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
 	UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
 	
-	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, undoButton, flexibleSpace, editButton, flexibleSpace, shareButton, fixedSpace, nil] animated:YES];
+	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, editButton, flexibleSpace, shareButton, fixedSpace, nil] animated:YES];
 	self.navigationController.toolbarHidden = NO;
 }
 
 - (void)initEditToolbar {
 	
 	UIBarButtonItem* undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoPressed:)];
+	
 	UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editPressed:)];
+	
 	UIBarButtonItem* redoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRedo target:self action:@selector(redoPressed:)];
 	
-	//TODO:
-	//Need rotate icon
-//	UIBarButtonItem* rotateButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"asdf"] style:UIBarButtonItemStylePlain target:self action:@selector(rotatePressed:)];
-	UIBarButtonItem* rotateButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(rotatePressed:)];
+	UIBarButtonItem* pixelateButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(pixelateButtonPressed)];
 	
 	UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
 	UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
 	
-	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, undoButton, flexibleSpace, redoButton, flexibleSpace, rotateButton, flexibleSpace, fixedSpace, editButton, fixedSpace, nil] animated:YES];
+	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, undoButton, flexibleSpace, redoButton, flexibleSpace, pixelateButton, flexibleSpace, fixedSpace, editButton, fixedSpace, nil] animated:YES];
 }
 
 - (void)openButtonPressed {
@@ -100,7 +100,7 @@
 	
 	imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-		imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera|UIImagePickerControllerSourceTypePhotoLibrary;
+		imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary&UIImagePickerControllerSourceTypeCamera;
 	}
 	imagePicker.delegate = self;
 	imagePicker.allowsEditing = YES;
@@ -112,6 +112,14 @@
 }
 
 - (void)redoPressed:(id)sender {
+	
+}
+
+- (void)pixelatePressed:(id)sender {
+
+}
+
+- (void)pixelateButtonPressed {
 	
 }
 

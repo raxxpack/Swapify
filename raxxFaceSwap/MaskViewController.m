@@ -7,18 +7,24 @@
 //
 
 #import "MaskViewController.h"
+#import "UIView+Toast.h"
+#import "UIImage+raxxFaceDetection.h"
+#import "UIImage+raxxFaceSwap.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface MaskViewController ()
 
 @property (nonatomic, strong) UIImageView* face1ImageView;
 @property (nonatomic, strong) UIImageView* face2ImageView;
+@property (nonatomic, strong) UIImageView* selectedImageView;
 @property (nonatomic, strong) UIView* tapOverView;
 @property (assign) BOOL isTapOverViewShowing;
 
 @end
 
 @implementation MaskViewController
+
+int assignedImageViewNumber;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,10 +39,11 @@
 {
     [super viewDidLoad];
 	
+	[self.view makeMultiToastBottomCentered:@"Shake to swap faces!" duration:3.0];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shakeNotification:)
 												 name:@"UIEventSubtypeMotionShakeEnded" object:nil];
 	
-	self.view.backgroundColor = [UIColor whiteColor];
+	self.view.backgroundColor = [UIColor blackColor];
 	self.imageView.image = [UIImage imageNamed:@"faceSwapTest.jpg"];
     
     self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.image.size.width, self.imageView.image.size.width);
@@ -88,13 +95,13 @@
 	if (self.isEditToolbarOpen) {
 		self.face1ImageView.userInteractionEnabled = YES;
 		self.face2ImageView.userInteractionEnabled = YES;
-		self.scrollView.scrollEnabled = NO;
 	} else {
 		self.face1ImageView.userInteractionEnabled = NO;
 		self.face2ImageView.userInteractionEnabled = NO;
 		self.scrollView.scrollEnabled = YES;
 		[self.tapOverView removeFromSuperview];
 		self.isTapOverViewShowing = NO;
+		
 	}
 }
 
@@ -109,13 +116,19 @@ typedef enum {
 
 PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
     UIView *view = r.view;
-    CGPoint touch0 = [r locationOfTouch:0 inView:view];
-    CGPoint touch1 = [r locationOfTouch:1 inView:view];
-    CGFloat tangent = fabsf((touch1.y - touch0.y) / (touch1.x - touch0.x));
-    return
-	tangent <= 0.2679491924f ? PinchAxisHorizontal // 15 degrees
-	: tangent >= 3.7320508076f ? PinchAxisVertical   // 75 degrees
-	: PinchAxisNone;
+	
+	if ([r numberOfTouches] == 2) {
+		CGPoint touch0 = [r locationOfTouch:0 inView:view];
+		CGPoint touch1 = [r locationOfTouch:1 inView:view];
+		CGFloat tangent = fabsf((touch1.y - touch0.y) / (touch1.x - touch0.x));
+		return
+		tangent <= 0.2679491924f ? PinchAxisHorizontal // 15 degrees
+		: tangent >= 3.7320508076f ? PinchAxisVertical   // 75 degrees
+		: PinchAxisNone;
+	}
+	
+	return	PinchAxisNone;
+
 }
 
 - (void)pinched:(UIPinchGestureRecognizer*)sender {
@@ -139,7 +152,9 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	if (self.isTapOverViewShowing) {
 		[self.tapOverView removeFromSuperview];
 		self.isTapOverViewShowing = NO;
+		self.selectedImageView = nil;
 	} else {
+		self.selectedImageView = imageView;
 		[self.scrollView addSubview:self.tapOverView];
 		[self.scrollView bringSubviewToFront:imageView];
 		self.isTapOverViewShowing = YES;
@@ -148,6 +163,7 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 
 - (void)panned:(UIPanGestureRecognizer*)sender {
 	
+	self.scrollView.scrollEnabled = NO;
 	if (self.isTapOverViewShowing) {
 		CGPoint translation = [sender translationInView:self.view];
 		NSLog(@"%f %f", translation.x, translation.y);
@@ -166,6 +182,25 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 
 - (void) shakeNotification:(id)sender {
 	[self getFaces];
+}
+
+- (UIImage*)currentImage
+{
+	
+	UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height), YES, 0.0);
+	
+	[self.imageView.image drawAtPoint: CGPointMake(0,0)];
+	
+	[self.face1ImageView.image drawAtPoint: CGPointMake(0,0)
+								 blendMode: kCGBlendModeNormal
+									 alpha: 1];
+	[self.face2ImageView.image drawAtPoint: CGPointMake(0,0)
+								 blendMode: kCGBlendModeNormal
+									 alpha: 1];
+	
+	UIImage *currentImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return currentImage;
 }
 
 #pragma mark - Face Swap Methods
@@ -243,6 +278,19 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	return roundedImage;
 }
 
+#pragma mark -- Pixelator Methods
+
+- (void)pixelateButtonPressed {
+	self.selectedImageView.image = [self.selectedImageView.image pixelateFaces:self.selectedImageView.image];
+}
+
+- (void)pixellateFaces:(id)sender {
+}
+
+- (void)unPixellateFaces {
+	
+}
+
 #pragma mark -- UIImagePickerController delegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -251,7 +299,6 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	self.tapOverView.frame = CGRectMake(0, 40, self.scrollView.contentSize.width, self.scrollView.contentSize.height);
 	self.face1ImageView.image = nil;
 	self.face2ImageView.image = nil;
-	[self getFaces];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

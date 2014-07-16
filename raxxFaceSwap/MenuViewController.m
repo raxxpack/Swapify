@@ -31,7 +31,7 @@
     
     self.view.backgroundColor = [UIColor grayColor];
     
-    self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Blurred-Background6.jpg"]];
+    self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nil"]];
     self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
     
     CGRect imageViewRect = [[UIScreen mainScreen] bounds];
@@ -44,11 +44,11 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[imageView]" options:0 metrics:nil views:viewDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[imageView]" options:0 metrics:nil views:viewDictionary]];
 	
-	self.menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44.0f, 200.0f, 44.0f * kNUMBER_OF_MENU_OPTIONS)];
+	self.menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44.0f, 200.0f, 100.0f * kNUMBER_OF_MENU_OPTIONS)];
 	self.menuTableView.backgroundColor = [UIColor clearColor];
 	self.menuTableView.dataSource = self;
 	self.menuTableView.delegate = self;
-	
+	self.menuTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	[self.view addSubview:self.menuTableView];
 	
 }
@@ -90,6 +90,8 @@
 - (void)test {
 
     UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[MaskViewController new]];
+	controller.navigationBar.backgroundColor = [UIColor blackColor];
+	controller.navigationBar.tintColor = [UIColor blackColor];
     [self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
 
 }
@@ -115,7 +117,7 @@
 	return kNUMBER_OF_MENU_OPTIONS;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return 44.0f;
+	return 100.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
