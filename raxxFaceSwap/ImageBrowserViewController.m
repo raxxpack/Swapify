@@ -7,6 +7,8 @@
 //
 
 #import "ImageBrowserViewController.h"
+#import "TWTSideMenuViewController.h"
+
 
 @interface ImageBrowserViewController ()
 
@@ -26,7 +28,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+	self.view.backgroundColor = [UIColor blackColor];
+	
+	UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
+    self.navigationItem.leftBarButtonItem = openItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,5 +41,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)openButtonPressed {
+	[self.sideMenuViewController openMenuAnimated:YES completion:nil];
+}
 
 @end

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MenuViewController.h"
-#import "MarkViewController.h"
+#import "MaskViewController.h"
 #import "TWTSideMenuViewController.h"
 #import "raxxWindow.h"
 
@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) TWTSideMenuViewController *sideMenuViewController;
 @property (nonatomic, strong) MenuViewController *menuViewController;
-@property (nonatomic, strong) MarkViewController *mainViewController;
+@property (nonatomic, strong) MaskViewController *mainViewController;
 
 @end
 
@@ -28,7 +28,7 @@
     // Override point for customization after application launch.
     
 	self.menuViewController = [[MenuViewController alloc] initWithNibName:nil bundle:nil];
-    self.mainViewController = [[MarkViewController alloc] initWithNibName:nil bundle:nil];
+    self.mainViewController = [[MaskViewController alloc] initWithNibName:nil bundle:nil];
     
     self.sideMenuViewController = [[TWTSideMenuViewController alloc] initWithMenuViewController:self.menuViewController mainViewController:[[UINavigationController alloc] initWithRootViewController:self.mainViewController]];
     self.sideMenuViewController.shadowColor = [UIColor blackColor];
@@ -38,7 +38,7 @@
     self.window.rootViewController = self.sideMenuViewController;
 
     
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = [UIColor grayColor];
     [self.window makeKeyAndVisible];
     return YES;
 }

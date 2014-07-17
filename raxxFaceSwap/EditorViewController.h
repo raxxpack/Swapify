@@ -19,5 +19,6 @@
 
 - (void)editButtonPressed;
 - (void)pixelateButtonPressed;
+- (void)sharePressed:(id)sender;
 
 @end

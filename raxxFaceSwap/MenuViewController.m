@@ -13,9 +13,10 @@
 #import "PixelatorViewController.h"
 #import "FaceSwapViewController.h"
 #import "MaskViewController.h"
+#import "ImageBrowserViewController.h"
 
 
-#define kNUMBER_OF_MENU_OPTIONS 5
+#define kNUMBER_OF_MENU_OPTIONS 3
 
 @interface MenuViewController ()
 
@@ -87,6 +88,13 @@
 	}
 }
 
+- (void)browserButtonPressed {
+	UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[ImageBrowserViewController new]];
+	controller.navigationBar.backgroundColor = [UIColor blackColor];
+	controller.navigationBar.tintColor = [UIColor blackColor];
+    [self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
+}
+
 - (void)test {
 
     UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[MaskViewController new]];
@@ -137,31 +145,22 @@
 	}
 	
 	if (indexPath.row == 0) {
-		cell.textLabel.text = @"Return";
-	} else if (indexPath.row == 1) {
-		cell.textLabel.text = @"Detector";
-	} else if (indexPath.row == 2) {
-		cell.textLabel.text = @"Pixelator";
-	} else if (indexPath.row == 3) {
 		cell.textLabel.text = @"Face Swap";
-	} else if (indexPath.row == 4) {
-		cell.textLabel.text = @"Test";
+	} else if (indexPath.row == 1) {
+		cell.textLabel.text = @"Pixelator";
+	} else if (indexPath.row == 2) {
+		cell.textLabel.text = @"Image Browser";
 	}
-	
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.row == 0) {
-		[self closeButtonPressed];
-	} else if (indexPath.row == 1) {
-		[self markFacesButtonPressed];
-	} else if (indexPath.row == 2) {
-		[self pixelatorButtonPressed];
-	} else if (indexPath.row == 3) {
-		[self faceSwapButtonPressed];
-	} else if (indexPath.row == 4) {
 		[self test];
+	} else if (indexPath.row == 1) {
+		[self pixelatorButtonPressed];
+	} else if (indexPath.row == 2) {
+		[self browserButtonPressed];
 	}
 }
 
