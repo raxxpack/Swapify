@@ -173,7 +173,14 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	}
 }
 
-- (void)rotated:(id)sender {
+- (void)rotated:(UIPanGestureRecognizer*)sender {
+	
+//	if (self.isTapOverViewShowing) {
+//		CGPoint translation = [sender translationInView:self.view];
+//		NSLog(@"%f %f", translation.x, translation.y);
+//		sender.view.center = CGPointMake(sender.view.center.x + translation.x, sender.view.center.y + translation.y);
+//		[sender setTranslation:CGPointZero inView:self.view];
+//	}
 	
 }
 
@@ -263,11 +270,11 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
         UIGraphicsBeginImageContextWithOptions(self.imageView.image.size, NO, 0.0);
 //        [self.imageView.image drawInRect:CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height)];
         
-//		face1UIImage = [self cropToCircle:face1UIImage andRect:faceRect1];
-//		face2UIImage = [self cropToCircle:face2UIImage andRect:faceRect2];
+		face1UIImage = [self cropToCircle:face1UIImage andRect:faceRect1];
+		face2UIImage = [self cropToCircle:face2UIImage andRect:faceRect2];
 		
-		face1UIImage = [self maskToFaceShape:face1UIImage andRect:faceRect1];
-		face2UIImage = [self maskToFaceShape:face2UIImage andRect:faceRect2];
+//		face1UIImage = [self maskToFaceShape:face1UIImage andRect:faceRect1];
+//		face2UIImage = [self maskToFaceShape:face2UIImage andRect:faceRect2];
 		
 		self.face1ImageView.image = face1UIImage;
 		self.face1ImageView.frame = faceRect1;
