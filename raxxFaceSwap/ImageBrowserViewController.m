@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UIImageView* displayImageView;
 @property (nonatomic, strong) UILabel* titleLabel;
 @property (nonatomic, strong) UITextView* displayTextView;
-@property (assign) NSInteger* currentIndex;
+@property (assign) NSInteger currentIndex;
 
 @end
 
@@ -93,11 +93,24 @@
 		_displayView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
 		
 		self.displayImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 280, 280)];
-		self.displayImageView.backgroundColor = [UIColor redColor];
+		self.displayImageView.backgroundColor = [UIColor blackColor];
 		[_displayView addSubview:self.displayImageView];
+		
+		self.displayTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 320, 280, 100)];
+		self.displayTextView.backgroundColor = [UIColor clearColor];
+		self.displayTextView.userInteractionEnabled = NO;
+		[_displayView addSubview:self.displayTextView];
+		
+		UISwipeGestureRecognizer* swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipedDown)];
+		swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
+		[_displayView addGestureRecognizer:swipeDown];
 	}
 	
 	return _displayView;
+}
+
+- (void)swipedDown {
+	[self hideDisplayView];
 }
 
 - (void)openButtonPressed {
@@ -153,10 +166,45 @@
 
 - (void)leftPressed:(id)sender {
 	
+	if (self.currentIndex > 0) {
+		self.currentIndex--;
+		
+		[self.displayImageView sd_setImageWithURL:[[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"url"] placeholderImage:nil];
+		
+		NSString* title = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"title"];
+		NSString* author = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"author"];
+		
+		NSString* epochTime = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"created"];
+		NSTimeInterval seconds = [epochTime doubleValue];
+		NSDate* epochDate = [[NSDate alloc] initWithTimeIntervalSince1970:seconds];
+		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+		[formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss zzz"];
+		NSString* dateString = [formatter stringFromDate:epochDate];
+		
+		self.displayTextView.text = [NSString stringWithFormat:@"%@ - %@ \n%@", author, dateString, title];
+		self.displayTextView.textColor = [UIColor whiteColor];
+	}
 }
 
 - (void)rightPressed:(id)sender {
 	
+	if (self.currentIndex <= self.posts.count - 2) {
+		self.currentIndex++;
+		[self.displayImageView sd_setImageWithURL:[[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"url"] placeholderImage:nil];
+		
+		NSString* title = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"title"];
+		NSString* author = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"author"];
+		
+		NSString* epochTime = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"created"];
+		NSTimeInterval seconds = [epochTime doubleValue];
+		NSDate* epochDate = [[NSDate alloc] initWithTimeIntervalSince1970:seconds];
+		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+		[formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss zzz"];
+		NSString* dateString = [formatter stringFromDate:epochDate];
+		
+		self.displayTextView.text = [NSString stringWithFormat:@"%@ - %@ \n%@", author, dateString, title];
+		self.displayTextView.textColor = [UIColor whiteColor];
+	}
 }
 
 - (void)sharePressed:(id)sender {
@@ -164,7 +212,7 @@
 }
 
 - (void)faceswapPressed:(id)sender {
-	
+	[self hideDisplayView];
 }
 
 
@@ -182,6 +230,21 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 	[self showDisplayView];
+	self.currentIndex = indexPath.item;
+	[self.displayImageView sd_setImageWithURL:[[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"url"] placeholderImage:nil];
+	
+	NSString* title = [[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"title"];
+	NSString* author = [[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"author"];
+	
+	NSString* epochTime = [[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"created"];
+	NSTimeInterval seconds = [epochTime doubleValue];
+	NSDate* epochDate = [[NSDate alloc] initWithTimeIntervalSince1970:seconds];
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss zzz"];
+	NSString* dateString = [formatter stringFromDate:epochDate];
+	
+	self.displayTextView.text = [NSString stringWithFormat:@"%@ - %@ \n%@", author, dateString, title];
+	self.displayTextView.textColor = [UIColor whiteColor];
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
