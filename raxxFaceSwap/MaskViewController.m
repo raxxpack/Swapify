@@ -270,11 +270,11 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
         UIGraphicsBeginImageContextWithOptions(self.imageView.image.size, NO, 0.0);
 //        [self.imageView.image drawInRect:CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height)];
         
-		face1UIImage = [self cropToCircle:face1UIImage andRect:faceRect1];
-		face2UIImage = [self cropToCircle:face2UIImage andRect:faceRect2];
+//		face1UIImage = [self cropToCircle:face1UIImage andRect:faceRect1];
+//		face2UIImage = [self cropToCircle:face2UIImage andRect:faceRect2];
 		
-//		face1UIImage = [self maskToFaceShape:face1UIImage andRect:faceRect1];
-//		face2UIImage = [self maskToFaceShape:face2UIImage andRect:faceRect2];
+		face1UIImage = [self maskToFaceShape:face1UIImage andRect:faceRect1];
+		face2UIImage = [self maskToFaceShape:face2UIImage andRect:faceRect2];
 		
 		self.face1ImageView.image = face1UIImage;
 		self.face1ImageView.frame = faceRect1;
@@ -305,7 +305,7 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 
 - (UIImage*)maskToFaceShape:(UIImage*)face andRect:(CGRect)imageRect {
 	
-	UIImage* maskImage = [UIImage imageNamed:@"FaceMask2.png"];
+	UIImage* maskImage = [UIImage imageNamed:@"FaceMask2"];
 //	maskImage = [self imageWithImage:maskImage scaledToSize:imageRect.size];
 	CGImageRef maskRef = maskImage.CGImage;
 	

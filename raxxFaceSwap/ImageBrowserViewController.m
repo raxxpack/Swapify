@@ -41,7 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+	
 	self.view.backgroundColor = [UIColor blackColor];
 	self.title = @"Browse";
 	
@@ -51,7 +51,7 @@
 	self.queue = [[NSOperationQueue alloc] init];
 	self.data = [[NSDictionary alloc] init];
 	self.posts = [[NSMutableArray alloc] init];
-
+	
 	UICollectionViewFlowLayout* layout = [[UICollectionViewFlowLayout alloc] init];
 	layout.minimumInteritemSpacing = 5.0f;
 	layout.minimumLineSpacing = 5.0f;
@@ -104,6 +104,14 @@
 		UISwipeGestureRecognizer* swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipedDown)];
 		swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
 		[_displayView addGestureRecognizer:swipeDown];
+		
+		UISwipeGestureRecognizer* swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(leftPressed:)];
+		swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+		[_displayView addGestureRecognizer:swipeRight];
+		
+		UISwipeGestureRecognizer* swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(rightPressed:)];
+		swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+		[_displayView addGestureRecognizer:swipeLeft];
 	}
 	
 	return _displayView;
@@ -141,7 +149,7 @@
 }
 
 - (void)initToolbarItems {
-
+	
 	self.navigationController.toolbar.tintColor = [UIColor blackColor];
 	UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
 	UIBarButtonItem* previous = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(leftPressed:)];
@@ -169,20 +177,34 @@
 	if (self.currentIndex > 0) {
 		self.currentIndex--;
 		
-		[self.displayImageView sd_setImageWithURL:[[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"url"] placeholderImage:nil];
-		
-		NSString* title = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"title"];
-		NSString* author = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"author"];
-		
-		NSString* epochTime = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"created"];
-		NSTimeInterval seconds = [epochTime doubleValue];
-		NSDate* epochDate = [[NSDate alloc] initWithTimeIntervalSince1970:seconds];
-		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-		[formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss zzz"];
-		NSString* dateString = [formatter stringFromDate:epochDate];
-		
-		self.displayTextView.text = [NSString stringWithFormat:@"%@ - %@ \n%@", author, dateString, title];
-		self.displayTextView.textColor = [UIColor whiteColor];
+		[UIView animateWithDuration:0.3 animations:^{
+			
+			[self.displayImageView setFrame:CGRectMake(320, self.displayImageView.frame.origin.y, self.displayImageView.frame.size.width, self.displayImageView.frame.size.height)];
+			
+		} completion:^(BOOL finished) {
+			[self.displayImageView setFrame:CGRectMake(20, self.displayImageView.frame.origin.y, self.displayImageView.frame.size.width, self.displayImageView.frame.size.height)];
+			
+			NSString* url = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"url"];
+			if (!([url rangeOfString:@"http://imgur.com"].location == NSNotFound)) {
+				url = [url stringByAppendingString:@".jpg"];
+			}
+			NSURL* newURL = [NSURL URLWithString:url];
+			
+			[self.displayImageView sd_setImageWithURL:newURL placeholderImage:[UIImage imageNamed:@"image_placeholder.png"]];
+			
+			NSString* title = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"title"];
+			NSString* author = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"author"];
+			
+			NSString* epochTime = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"created"];
+			NSTimeInterval seconds = [epochTime doubleValue];
+			NSDate* epochDate = [[NSDate alloc] initWithTimeIntervalSince1970:seconds];
+			NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+			[formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss zzz"];
+			NSString* dateString = [formatter stringFromDate:epochDate];
+			
+			self.displayTextView.text = [NSString stringWithFormat:@"%@ - %@ \n%@", author, dateString, title];
+			self.displayTextView.textColor = [UIColor whiteColor];
+		}];
 	}
 }
 
@@ -190,20 +212,37 @@
 	
 	if (self.currentIndex <= self.posts.count - 2) {
 		self.currentIndex++;
-		[self.displayImageView sd_setImageWithURL:[[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"url"] placeholderImage:nil];
 		
-		NSString* title = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"title"];
-		NSString* author = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"author"];
-		
-		NSString* epochTime = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"created"];
-		NSTimeInterval seconds = [epochTime doubleValue];
-		NSDate* epochDate = [[NSDate alloc] initWithTimeIntervalSince1970:seconds];
-		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-		[formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss zzz"];
-		NSString* dateString = [formatter stringFromDate:epochDate];
-		
-		self.displayTextView.text = [NSString stringWithFormat:@"%@ - %@ \n%@", author, dateString, title];
-		self.displayTextView.textColor = [UIColor whiteColor];
+		[UIView animateWithDuration:0.3 animations:^{
+			[self.displayImageView setFrame:CGRectMake(-320, self.displayImageView.frame.origin.y, self.displayImageView.frame.size.width, self.displayImageView.frame.size.height)];
+			
+		} completion:^(BOOL finished) {
+			[self.displayImageView setFrame:CGRectMake(20, self.displayImageView.frame.origin.y, self.displayImageView.frame.size.width, self.displayImageView.frame.size.height)];
+			
+			NSString* url = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"url"];
+			if (!([url rangeOfString:@"http://imgur.com"].location == NSNotFound)) {
+				url = [url stringByAppendingString:@".jpg"];
+			}
+			NSURL* newURL = [NSURL URLWithString:url];
+			
+			[self.displayImageView sd_setImageWithURL:newURL placeholderImage:[UIImage imageNamed:@"image_placeholder.png"]];
+
+			
+			NSString* title = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"title"];
+			NSString* author = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"author"];
+			
+			NSString* epochTime = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"created"];
+			NSTimeInterval seconds = [epochTime doubleValue];
+			NSDate* epochDate = [[NSDate alloc] initWithTimeIntervalSince1970:seconds];
+			NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+			[formatter setDateFormat: @"yyyy-MM-dd HH:mm:ss zzz"];
+			NSString* dateString = [formatter stringFromDate:epochDate];
+			
+			self.displayTextView.text = [NSString stringWithFormat:@"%@ - %@ \n%@", author, dateString, title];
+			self.displayTextView.textColor = [UIColor whiteColor];
+		}];
+	} else {
+		[self getData];
 	}
 }
 
@@ -212,18 +251,18 @@
 }
 
 - (void)faceswapPressed:(id)sender {
-	[self hideDisplayView];
+
 }
 
 
 #pragma mark - UICollectionView Methods
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-
+	
 	ThumbnailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor grayColor];
 	
-	[cell.imageView sd_setImageWithURL:[[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"thumbnail"] placeholderImage:nil];
+	[cell.imageView sd_setImageWithURL:[[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"thumbnail"] placeholderImage:[UIImage imageNamed:@"image_placeholder.png"]];
 	
 	return cell;
 }
@@ -231,7 +270,15 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 	[self showDisplayView];
 	self.currentIndex = indexPath.item;
-	[self.displayImageView sd_setImageWithURL:[[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"url"] placeholderImage:nil];
+	
+	
+	NSString* url = [[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"url"];
+	if (!([url rangeOfString:@"http://imgur.com"].location == NSNotFound)) {
+		url = [url stringByAppendingString:@".jpg"];
+	}
+	NSURL* newURL = [NSURL URLWithString:url];
+	
+	[self.displayImageView sd_setImageWithURL:newURL placeholderImage:[UIImage imageNamed:@"image_placeholder.png"]];
 	
 	NSString* title = [[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"title"];
 	NSString* author = [[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"author"];

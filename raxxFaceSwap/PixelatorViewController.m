@@ -32,6 +32,9 @@
     [super viewDidLoad];
 	
 	self.title = @"Pixellator";
+	
+	self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+	
 	self.originalImage = self.imageView.image;
 	[self.view makeMultiToastBottomCentered:@"Tap to pixellate faces!" duration:3.0];
 	

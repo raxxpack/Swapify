@@ -27,6 +27,7 @@
 		5B0993091912A8BB008C3185 /* Blurred-Background6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5B0993081912A8BB008C3185 /* Blurred-Background6.jpg */; };
 		5B09930C1912A9E5008C3185 /* FaceSwapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B09930B1912A9E5008C3185 /* FaceSwapViewController.m */; };
 		5B0A8A2A19781E910008AF84 /* FaceMask2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B0A8A2919781E910008AF84 /* FaceMask2.png */; };
+		5B0D759C198043110071B2F2 /* image_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B0D759B198043110071B2F2 /* image_placeholder.png */; };
 		5B0F477B1976D3F80090893E /* ImageBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0F477A1976D3F80090893E /* ImageBrowserViewController.m */; };
 		5B69BE4C197DADED0091CE7F /* ThumbnailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69BE4B197DADED0091CE7F /* ThumbnailCell.m */; };
 		5BAC04B81899E70200009CEB /* SteveJobs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAC04B71899E70200009CEB /* SteveJobs.jpg */; };
@@ -91,6 +92,7 @@
 		5B09930A1912A9E5008C3185 /* FaceSwapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceSwapViewController.h; sourceTree = "<group>"; };
 		5B09930B1912A9E5008C3185 /* FaceSwapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceSwapViewController.m; sourceTree = "<group>"; };
 		5B0A8A2919781E910008AF84 /* FaceMask2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FaceMask2.png; sourceTree = "<group>"; };
+		5B0D759B198043110071B2F2 /* image_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_placeholder.png; sourceTree = "<group>"; };
 		5B0F47791976D3F80090893E /* ImageBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserViewController.h; sourceTree = "<group>"; };
 		5B0F477A1976D3F80090893E /* ImageBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBrowserViewController.m; sourceTree = "<group>"; };
 		5B5395621918423D00D20FE2 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				C9C847CF192B910100BF9CAA /* faceSwapTest.jpg */,
 				5B07A60919144AF600085DB4 /* Screenshot.png */,
 				5B07A60719140B2900085DB4 /* rotateToolbarButton.png */,
+				5B0D759B198043110071B2F2 /* image_placeholder.png */,
 				5BAC04B71899E70200009CEB /* SteveJobs.jpg */,
 				5B0993001912A70F008C3185 /* Blurred-Background1.jpg */,
 				5B0993021912A791008C3185 /* Blurred-Background2.jpeg */,
@@ -382,6 +385,7 @@
 				5BC1F2091899785800E11A42 /* InfoPlist.strings in Resources */,
 				5B0993031912A791008C3185 /* Blurred-Background2.jpeg in Resources */,
 				5B0993071912A863008C3185 /* Blurred-Background5.jpg in Resources */,
+				5B0D759C198043110071B2F2 /* image_placeholder.png in Resources */,
 				5BC1F2111899785800E11A42 /* Images.xcassets in Resources */,
 				5B0993011912A70F008C3185 /* Blurred-Background1.jpg in Resources */,
 				5B0A8A2A19781E910008AF84 /* FaceMask2.png in Resources */,
