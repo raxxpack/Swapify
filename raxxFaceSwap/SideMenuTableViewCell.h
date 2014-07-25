@@ -10,4 +10,7 @@
 
 @interface SideMenuTableViewCell : UITableViewCell
 
+@property (nonatomic, strong) UIImageView* leftImageView;
+@property (nonatomic, strong) UILabel* nameLabel;
+
 @end

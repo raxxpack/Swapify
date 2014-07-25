@@ -42,7 +42,7 @@
 	[self.view addSubview:self.scrollView];
 	
 	
-	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SteveJobs.jpg"]];
+//	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SteveJobs.jpg"]];
 	self.imageView.frame = (CGRect) {
 		.origin = CGPointMake(self.imageView.frame.origin.x, 44),
 		.size = self.imageView.image.size

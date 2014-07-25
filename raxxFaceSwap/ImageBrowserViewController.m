@@ -9,6 +9,7 @@
 #import "ImageBrowserViewController.h"
 #import "TWTSideMenuViewController.h"
 #import "ThumbnailCell.h"
+#import "MenuViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface ImageBrowserViewController ()
@@ -63,7 +64,7 @@
 	[self.view addSubview:self.collectionView];
 	
 	self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.tintColor = [UIColor whiteColor];
+    self.refreshControl.tintColor = [UIColor lightGrayColor];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:self.refreshControl];
     self.collectionView.alwaysBounceVertical = YES;
@@ -190,7 +191,7 @@
 			}
 			NSURL* newURL = [NSURL URLWithString:url];
 			
-			[self.displayImageView sd_setImageWithURL:newURL placeholderImage:[UIImage imageNamed:@"image_placeholder.png"]];
+			[self.displayImageView sd_setImageWithURL:newURL placeholderImage:[UIImage imageNamed:@"nil"]];
 			
 			NSString* title = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"title"];
 			NSString* author = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"author"];
@@ -225,7 +226,7 @@
 			}
 			NSURL* newURL = [NSURL URLWithString:url];
 			
-			[self.displayImageView sd_setImageWithURL:newURL placeholderImage:[UIImage imageNamed:@"image_placeholder.png"]];
+			[self.displayImageView sd_setImageWithURL:newURL placeholderImage:[UIImage imageNamed:@"nil"]];
 
 			
 			NSString* title = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"title"];
@@ -251,7 +252,7 @@
 }
 
 - (void)faceswapPressed:(id)sender {
-
+	[((MenuViewController*)self.sideMenuViewController.menuViewController) faceSwapButtonPressedwithImage:self.displayImageView.image];
 }
 
 
@@ -262,7 +263,9 @@
 	ThumbnailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
 	cell.backgroundColor = [UIColor grayColor];
 	
-	[cell.imageView sd_setImageWithURL:[[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"thumbnail"] placeholderImage:[UIImage imageNamed:@"image_placeholder.png"]];
+	if (self.posts.count > indexPath.item) {
+		[cell.imageView sd_setImageWithURL:[[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"thumbnail"] placeholderImage:[UIImage imageNamed:@"nil"]];
+	}
 	
 	return cell;
 }
@@ -278,7 +281,7 @@
 	}
 	NSURL* newURL = [NSURL URLWithString:url];
 	
-	[self.displayImageView sd_setImageWithURL:newURL placeholderImage:[UIImage imageNamed:@"image_placeholder.png"]];
+	[self.displayImageView sd_setImageWithURL:newURL placeholderImage:[UIImage imageNamed:@"nil"]];
 	
 	NSString* title = [[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"title"];
 	NSString* author = [[[self.posts objectAtIndex:indexPath.item] objectForKey:@"data"] objectForKey:@"author"];

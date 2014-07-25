@@ -34,7 +34,9 @@
     
     self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nil"]];
     self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    
+	
+	self.sideMenuViewController.shadowColor = [UIColor whiteColor];
+	
     CGRect imageViewRect = [[UIScreen mainScreen] bounds];
     imageViewRect.size.width += 589;
     self.backgroundImageView.frame = imageViewRect;
@@ -45,11 +47,12 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[imageView]" options:0 metrics:nil views:viewDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[imageView]" options:0 metrics:nil views:viewDictionary]];
 	
-	self.menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44.0f, 200.0f, 100.0f * kNUMBER_OF_MENU_OPTIONS)];
+	self.menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 130.0f, 220.0f, self.view.frame.size.height - 44)];
 	self.menuTableView.backgroundColor = [UIColor clearColor];
 	self.menuTableView.dataSource = self;
 	self.menuTableView.delegate = self;
 	self.menuTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+	self.menuTableView.scrollEnabled = NO;
 	[self.view addSubview:self.menuTableView];
 	
 }
@@ -81,6 +84,17 @@
 	if (!([((UINavigationController*)self.sideMenuViewController.mainViewController).viewControllers[0] isKindOfClass:[FaceSwapViewController class]])) {
 		
 		UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[FaceSwapViewController new]];
+		[self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
+		
+	} else {
+		[self.sideMenuViewController closeMenuAnimated:YES completion:nil];
+	}
+}
+
+- (void)faceSwapButtonPressedwithImage:(UIImage*)image {
+	if (!([((UINavigationController*)self.sideMenuViewController.mainViewController).viewControllers[0] isKindOfClass:[MaskViewController class]])) {
+		
+		UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[[MaskViewController alloc] initWithImage:image]];
 		[self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
 		
 	} else {
@@ -132,24 +146,27 @@
 {
 	static NSString *menuCellIdentifier = @"menuCellIdentifier";
 	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:menuCellIdentifier];
+	SideMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:menuCellIdentifier];
 	
 	if (cell == nil)
 	{
 		cell = [[SideMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
 											reuseIdentifier:menuCellIdentifier];
 		cell.backgroundColor = [UIColor clearColor];
-		cell.textLabel.textColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.95 alpha:0.95];
+		cell.textLabel.textColor = [UIColor blackColor];
 		[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 		
 	}
 	
 	if (indexPath.row == 0) {
-		cell.textLabel.text = @"Face Swap";
+		cell.leftImageView.image = [UIImage imageNamed:@"theatreblack.png"];
+		cell.nameLabel.text = @"Swap";
 	} else if (indexPath.row == 1) {
-		cell.textLabel.text = @"Pixelator";
+		cell.leftImageView.image = [UIImage imageNamed:@"fantasyblack.png"];
+		cell.nameLabel.text = @"Pixelate";
 	} else if (indexPath.row == 2) {
-		cell.textLabel.text = @"Image Browser";
+		cell.leftImageView.image = [UIImage imageNamed:@"compasblack.png"];
+		cell.nameLabel.text = @"Browse";
 	}
 	return cell;
 }

@@ -23,6 +23,9 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+		
+		self.imageView = [[UIImageView alloc] initWithImage:nil];
+		
     }
     return self;
 }

@@ -14,6 +14,17 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+		
+		[self.textLabel setTextColor:[UIColor blackColor]];
+		
+		self.leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 80, 80)];
+		[self.contentView addSubview:self.leftImageView];
+		
+		self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 40, 100, 20)];
+		self.nameLabel.textColor = [UIColor blackColor];
+		self.nameLabel.font = [UIFont boldSystemFontOfSize:20.0f];
+		[self.contentView addSubview:self.nameLabel];
+		
     }
     return self;
 }
@@ -27,9 +38,9 @@
 	
 	[super setHighlighted:highlighted animated:animated];
 	if (highlighted) {
-		[self.textLabel setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.75 alpha:0.8]];
+		[self.nameLabel setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.75 alpha:0.8]];
 	} else {
-		[self.textLabel setTextColor:[UIColor colorWithRed:0.85 green:0.85 blue:0.95 alpha:0.9]];
+		self.nameLabel.textColor = [UIColor blackColor];
 	}
 }
 
@@ -37,15 +48,15 @@
 	[super setSelected:selected animated:animated];
 	
 	if (selected) {
-		[self.textLabel setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.75 alpha:0.8]];
+		[self.nameLabel setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.75 alpha:0.8]];
 	} else {
-		[self.textLabel setTextColor:[UIColor colorWithRed:0.85 green:0.85 blue:0.95 alpha:0.9]];
+		self.nameLabel.textColor = [UIColor blackColor];
 	}
 }
 
 - (void)setSelected:(BOOL)selected {
 	[super setSelected:selected];
-	[self.textLabel setTextColor:[UIColor colorWithRed:0.85 green:0.85 blue:0.95 alpha:1]];
+	self.nameLabel.textColor = [UIColor blackColor];
 }
 
 @end

@@ -31,8 +31,23 @@ int assignedImageViewNumber;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
 		self.title = @"Face Swap!";
+		
+		self.imageView.image = [UIImage imageNamed:@"faceSwapTest.jpg"];
+		self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"faceSwapTest.jpg"]];
+		
+		self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.image.size.width, self.imageView.image.size.width);
     }
     return self;
+}
+
+- (id)initWithImage:(UIImage*)image {
+	self = [super init];
+	if (self) {
+		self.title = @"Face Swap!";
+		self.imageView.image = image;
+		self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.image.size.width, self.imageView.image.size.width);
+	}
+	return self;
 }
 
 - (void)viewDidLoad
@@ -45,9 +60,6 @@ int assignedImageViewNumber;
 	
 	self.view.backgroundColor = [UIColor blackColor];
 	self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-	self.imageView.image = [UIImage imageNamed:@"faceSwapTest.jpg"];
-    
-    self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.image.size.width, self.imageView.image.size.width);
 	
     self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height+ 40);
 	[self.scrollView removeGestureRecognizer:self.tapGesture];
@@ -69,7 +81,7 @@ int assignedImageViewNumber;
 	pan2.delegate = self;
 	UIRotationGestureRecognizer* rotate2 = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotated:)];
 	rotate2.delegate = self;
-
+	
 	self.tapOverView = [[UIView alloc] initWithFrame:CGRectMake(0, 40, self.scrollView.contentSize.width, self.scrollView.contentSize.height)];
 	self.tapOverView.backgroundColor = [UIColor colorWithWhite:0.1	alpha:0.7 ];
 	
@@ -129,7 +141,7 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	}
 	
 	return	PinchAxisNone;
-
+	
 }
 
 - (void)pinched:(UIPinchGestureRecognizer*)sender {
@@ -173,14 +185,14 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	}
 }
 
-- (void)rotated:(UIPanGestureRecognizer*)sender {
+- (void)rotated:(UIRotationGestureRecognizer*)sender {
 	
-//	if (self.isTapOverViewShowing) {
-//		CGPoint translation = [sender translationInView:self.view];
-//		NSLog(@"%f %f", translation.x, translation.y);
-//		sender.view.center = CGPointMake(sender.view.center.x + translation.x, sender.view.center.y + translation.y);
-//		[sender setTranslation:CGPointZero inView:self.view];
-//	}
+	if (self.isTapOverViewShowing) {
+		UIImageView* imageView = (UIImageView*)(sender).view;
+		
+		imageView.transform = CGAffineTransformRotate(imageView.transform, sender.rotation);
+		sender.rotation = 0;
+	}
 	
 }
 
@@ -195,20 +207,13 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 - (UIImage*)currentImage
 {
 	
-	UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height), YES, 0.0);
-	
-	[self.imageView.image drawAtPoint: CGPointMake(0,0)];
-	
-	[self.face1ImageView.image drawAtPoint: CGPointMake(self.face1ImageView.frame.origin.x, self.face1ImageView.frame.origin.y -40)
-								 blendMode: kCGBlendModeNormal
-									 alpha: 1];
-	[self.face2ImageView.image drawAtPoint: CGPointMake(self.face2ImageView.frame.origin.x, self.face2ImageView.frame.origin.y -40)
-								 blendMode: kCGBlendModeNormal
-									 alpha: 1];
-	
-	UIImage *currentImage = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsBeginImageContext(self.view.bounds.size);
+	[self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:NO];
+	UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
-	return currentImage;
+	return image;
+	
+	
 }
 
 - (void)sharePressed:(id)sender {
@@ -221,7 +226,7 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	
-	UIActivityViewController* shareController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:image] applicationActivities: nil];
+	UIActivityViewController* shareController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:[self currentImage]] applicationActivities: nil];
 	[self presentViewController:shareController animated:YES completion:nil];
 }
 
@@ -268,13 +273,13 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 		
         
         UIGraphicsBeginImageContextWithOptions(self.imageView.image.size, NO, 0.0);
-//        [self.imageView.image drawInRect:CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height)];
+		//        [self.imageView.image drawInRect:CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height)];
         
-//		face1UIImage = [self cropToCircle:face1UIImage andRect:faceRect1];
-//		face2UIImage = [self cropToCircle:face2UIImage andRect:faceRect2];
+		face1UIImage = [self cropToCircle:face1UIImage andRect:faceRect1];
+		face2UIImage = [self cropToCircle:face2UIImage andRect:faceRect2];
 		
-		face1UIImage = [self maskToFaceShape:face1UIImage andRect:faceRect1];
-		face2UIImage = [self maskToFaceShape:face2UIImage andRect:faceRect2];
+		//		face1UIImage = [self maskToFaceShape:face1UIImage andRect:faceRect1];
+		//		face2UIImage = [self maskToFaceShape:face2UIImage andRect:faceRect2];
 		
 		self.face1ImageView.image = face1UIImage;
 		self.face1ImageView.frame = faceRect1;
@@ -282,7 +287,7 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 		self.face2ImageView.image = face2UIImage;
 		self.face2ImageView.frame = faceRect2;
 	}
-
+	
 }
 
 - (UIImage*)cropToCircle:(UIImage*)face andRect:(CGRect)imageRect {
@@ -306,7 +311,7 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 - (UIImage*)maskToFaceShape:(UIImage*)face andRect:(CGRect)imageRect {
 	
 	UIImage* maskImage = [UIImage imageNamed:@"FaceMask2"];
-//	maskImage = [self imageWithImage:maskImage scaledToSize:imageRect.size];
+	//	maskImage = [self imageWithImage:maskImage scaledToSize:imageRect.size];
 	CGImageRef maskRef = maskImage.CGImage;
 	
 	CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskRef),
@@ -329,19 +334,6 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
-}
-
-#pragma mark -- Pixelator Methods
-
-- (void)pixelateButtonPressed {
-	self.selectedImageView.image = [self.selectedImageView.image pixelateFaces:self.selectedImageView.image];
-}
-
-- (void)pixellateFaces:(id)sender {
-}
-
-- (void)unPixellateFaces {
-	
 }
 
 #pragma mark -- UIImagePickerController delegate methods

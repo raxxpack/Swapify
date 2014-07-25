@@ -10,4 +10,6 @@
 
 @interface MenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+- (void)faceSwapButtonPressedwithImage:(UIImage*)image;
+
 @end

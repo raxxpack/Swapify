@@ -11,5 +11,6 @@
 
 @interface MaskViewController : EditorViewController <UIGestureRecognizerDelegate, UIScrollViewDelegate>
 
+- (id)initWithImage:(UIImage*)image;
 
 @end
