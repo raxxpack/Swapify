@@ -11,6 +11,7 @@
 #import "ThumbnailCell.h"
 #import "MenuViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "UIView+Toast.h"
 
 @interface ImageBrowserViewController ()
 
@@ -160,6 +161,9 @@
 }
 
 - (void)showDisplayView {
+	
+	[self.view makeMultiToastBottomCentered:@"Swipe down to return." duration:2.0];
+	
 	[UIView animateWithDuration:0.3 animations:^{
 		self.navigationController.toolbarHidden = NO;
 		self.displayView.frame = CGRectMake(0, 64, self.displayView.frame.size.width, self.displayView.frame.size.height);

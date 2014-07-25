@@ -86,7 +86,7 @@ int assignedImageViewNumber;
 	self.tapOverView.backgroundColor = [UIColor colorWithWhite:0.1	alpha:0.7 ];
 	
 	self.face1ImageView = [[UIImageView alloc] init];
-	self.face1ImageView.userInteractionEnabled = NO;
+	self.face1ImageView.userInteractionEnabled = YES;
 	[self.face1ImageView addGestureRecognizer:pinch];
 	[self.face1ImageView addGestureRecognizer:tap];
 	[self.face1ImageView addGestureRecognizer:pan];
@@ -94,30 +94,29 @@ int assignedImageViewNumber;
 	[self.scrollView addSubview:self.face1ImageView];
 	
 	self.face2ImageView = [[UIImageView alloc] init];
-	self.face2ImageView.userInteractionEnabled = NO;
+	self.face2ImageView.userInteractionEnabled = YES;
 	[self.face2ImageView addGestureRecognizer:pinch2];
 	[self.face2ImageView addGestureRecognizer:tap2];
 	[self.face2ImageView addGestureRecognizer:pan2];
 	[self.face2ImageView addGestureRecognizer:rotate2];
 	[self.scrollView addSubview:self.face2ImageView];
 	
+	[self initToolbar];
 }
 
-- (void)editPressed:(id)sender {
-	[super editButtonPressed];
-	if (self.isEditToolbarOpen) {
-		self.face1ImageView.userInteractionEnabled = YES;
-		self.face2ImageView.userInteractionEnabled = YES;
-	} else {
-		self.face1ImageView.userInteractionEnabled = NO;
-		self.face2ImageView.userInteractionEnabled = NO;
-		self.scrollView.scrollEnabled = YES;
-		[self.tapOverView removeFromSuperview];
-		self.isTapOverViewShowing = NO;
-		
-	}
+- (void)initToolbar {
+	
+	self.navigationController.toolbar.tintColor = [UIColor blackColor];
+	
+	UIBarButtonItem* libraryButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"libraryButton3"] style:UIBarButtonItemStylePlain target:self action:@selector(selectImage:)];
+	UIBarButtonItem* faceSwapButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"theatremaskblack2"] style:UIBarButtonItemStylePlain target:self action:@selector(getFaces)];
+	UIBarButtonItem* cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(cameraPressed:)];
+	UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+	UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+	
+	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, libraryButton, flexibleSpace, faceSwapButton, flexibleSpace, cameraButton, fixedSpace, nil] animated:YES];
+	self.navigationController.toolbarHidden = NO;
 }
-
 
 #pragma mark - Gesture Recognizer Methods
 
@@ -183,6 +182,10 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 		sender.view.center = CGPointMake(sender.view.center.x + translation.x, sender.view.center.y + translation.y);
 		[sender setTranslation:CGPointZero inView:self.view];
 	}
+	
+	if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled || sender.state == UIGestureRecognizerStateFailed) {
+		self.scrollView.scrollEnabled = YES;
+	}
 }
 
 - (void)rotated:(UIRotationGestureRecognizer*)sender {
@@ -217,14 +220,6 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 }
 
 - (void)sharePressed:(id)sender {
-	
-	UIImage* originalImage = [self currentImage];
-	UIImageView* imageView = [[UIImageView alloc] initWithImage:originalImage];
-	
-	UIGraphicsBeginImageContext(self.imageView.bounds.size);
-	[imageView.layer renderInContext:UIGraphicsGetCurrentContext()];
-	UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
 	
 	UIActivityViewController* shareController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:[self currentImage]] applicationActivities: nil];
 	[self presentViewController:shareController animated:YES completion:nil];
@@ -288,6 +283,8 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 		self.face2ImageView.frame = faceRect2;
 	}
 	
+	
+	[self.view makeMultiToastBottomCentered:@"Tap faces to edit" duration:2.0];
 }
 
 - (UIImage*)cropToCircle:(UIImage*)face andRect:(CGRect)imageRect {

@@ -34,6 +34,11 @@
 		5B0D75A419805D8F0071B2F2 /* compasblack.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B0D75A319805D8F0071B2F2 /* compasblack.png */; };
 		5B0D75A619805D9D0071B2F2 /* photosblack.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B0D75A519805D9D0071B2F2 /* photosblack.png */; };
 		5B0F477B1976D3F80090893E /* ImageBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0F477A1976D3F80090893E /* ImageBrowserViewController.m */; };
+		5B1F7C531982ABEB00EB6719 /* libraryButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F7C521982ABEB00EB6719 /* libraryButton.png */; };
+		5B1F7C551982AC3B00EB6719 /* libraryButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F7C541982AC3B00EB6719 /* libraryButton2.png */; };
+		5B1F7C571982AD2D00EB6719 /* libraryButton3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F7C561982AD2D00EB6719 /* libraryButton3.png */; };
+		5B1F7C591982AFD200EB6719 /* fantasyblack2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F7C581982AFD200EB6719 /* fantasyblack2.png */; };
+		5B1F7C5B1982AFE100EB6719 /* theatremaskblack2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B1F7C5A1982AFE100EB6719 /* theatremaskblack2.png */; };
 		5B69BE4C197DADED0091CE7F /* ThumbnailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B69BE4B197DADED0091CE7F /* ThumbnailCell.m */; };
 		5BAC04B81899E70200009CEB /* SteveJobs.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BAC04B71899E70200009CEB /* SteveJobs.jpg */; };
 		5BC1F1FF1899785800E11A42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC1F1FE1899785800E11A42 /* Foundation.framework */; };
@@ -104,6 +109,11 @@
 		5B0D75A519805D9D0071B2F2 /* photosblack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photosblack.png; sourceTree = "<group>"; };
 		5B0F47791976D3F80090893E /* ImageBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserViewController.h; sourceTree = "<group>"; };
 		5B0F477A1976D3F80090893E /* ImageBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBrowserViewController.m; sourceTree = "<group>"; };
+		5B1F7C521982ABEB00EB6719 /* libraryButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = libraryButton.png; sourceTree = "<group>"; };
+		5B1F7C541982AC3B00EB6719 /* libraryButton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = libraryButton2.png; sourceTree = "<group>"; };
+		5B1F7C561982AD2D00EB6719 /* libraryButton3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = libraryButton3.png; sourceTree = "<group>"; };
+		5B1F7C581982AFD200EB6719 /* fantasyblack2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fantasyblack2.png; sourceTree = "<group>"; };
+		5B1F7C5A1982AFE100EB6719 /* theatremaskblack2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = theatremaskblack2.png; sourceTree = "<group>"; };
 		5B5395621918423D00D20FE2 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		5B69BE4A197DADED0091CE7F /* ThumbnailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbnailCell.h; sourceTree = "<group>"; };
 		5B69BE4B197DADED0091CE7F /* ThumbnailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbnailCell.m; sourceTree = "<group>"; };
@@ -295,16 +305,21 @@
 				5B0D75A519805D9D0071B2F2 /* photosblack.png */,
 				5B0D75A319805D8F0071B2F2 /* compasblack.png */,
 				5B0D75A119805D520071B2F2 /* theatreblack.png */,
+				5B1F7C5A1982AFE100EB6719 /* theatremaskblack2.png */,
+				5B1F7C581982AFD200EB6719 /* fantasyblack2.png */,
 				5B0D759F19805D330071B2F2 /* fantasyblack.png */,
 				5B0D759D19804B720071B2F2 /* placeholder.jpg */,
 				5B0A8A2919781E910008AF84 /* FaceMask2.png */,
 				C9C847CF192B910100BF9CAA /* faceSwapTest.jpg */,
+				5B1F7C561982AD2D00EB6719 /* libraryButton3.png */,
 				5B07A60919144AF600085DB4 /* Screenshot.png */,
 				5B07A60719140B2900085DB4 /* rotateToolbarButton.png */,
 				5B0D759B198043110071B2F2 /* image_placeholder.png */,
+				5B1F7C541982AC3B00EB6719 /* libraryButton2.png */,
 				5BAC04B71899E70200009CEB /* SteveJobs.jpg */,
 				5B0993001912A70F008C3185 /* Blurred-Background1.jpg */,
 				5B0993021912A791008C3185 /* Blurred-Background2.jpeg */,
+				5B1F7C521982ABEB00EB6719 /* libraryButton.png */,
 				5B0993041912A829008C3185 /* Blurred-Background4.jpg */,
 				5B0993061912A863008C3185 /* Blurred-Background5.jpg */,
 				5B0993081912A8BB008C3185 /* Blurred-Background6.jpg */,
@@ -391,9 +406,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BAC04B81899E70200009CEB /* SteveJobs.jpg in Resources */,
+				5B1F7C551982AC3B00EB6719 /* libraryButton2.png in Resources */,
 				C9C847D0192B910100BF9CAA /* faceSwapTest.jpg in Resources */,
 				5B07A60819140B2900085DB4 /* rotateToolbarButton.png in Resources */,
 				5B06E6491911495400EEEE9E /* galaxy.png in Resources */,
+				5B1F7C571982AD2D00EB6719 /* libraryButton3.png in Resources */,
 				5BC1F2091899785800E11A42 /* InfoPlist.strings in Resources */,
 				5B0D75A219805D520071B2F2 /* theatreblack.png in Resources */,
 				5B0993031912A791008C3185 /* Blurred-Background2.jpeg in Resources */,
@@ -403,7 +420,10 @@
 				5BC1F2111899785800E11A42 /* Images.xcassets in Resources */,
 				5B0993011912A70F008C3185 /* Blurred-Background1.jpg in Resources */,
 				5B0A8A2A19781E910008AF84 /* FaceMask2.png in Resources */,
+				5B1F7C531982ABEB00EB6719 /* libraryButton.png in Resources */,
+				5B1F7C5B1982AFE100EB6719 /* theatremaskblack2.png in Resources */,
 				5B0993091912A8BB008C3185 /* Blurred-Background6.jpg in Resources */,
+				5B1F7C591982AFD200EB6719 /* fantasyblack2.png in Resources */,
 				5B0D75A419805D8F0071B2F2 /* compasblack.png in Resources */,
 				5B0D75A619805D9D0071B2F2 /* photosblack.png in Resources */,
 				5B0993051912A829008C3185 /* Blurred-Background4.jpg in Resources */,

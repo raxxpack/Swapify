@@ -44,19 +44,5 @@
 	}
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-	[super setSelected:selected animated:animated];
-	
-	if (selected) {
-		[self.nameLabel setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.75 alpha:0.8]];
-	} else {
-		self.nameLabel.textColor = [UIColor blackColor];
-	}
-}
-
-- (void)setSelected:(BOOL)selected {
-	[super setSelected:selected];
-	self.nameLabel.textColor = [UIColor blackColor];
-}
 
 @end

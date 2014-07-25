@@ -81,9 +81,9 @@
 }
 
 - (void)faceSwapButtonPressed {
-	if (!([((UINavigationController*)self.sideMenuViewController.mainViewController).viewControllers[0] isKindOfClass:[FaceSwapViewController class]])) {
+	if (!([((UINavigationController*)self.sideMenuViewController.mainViewController).viewControllers[0] isKindOfClass:[MaskViewController class]])) {
 		
-		UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[FaceSwapViewController new]];
+		UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[MaskViewController new]];
 		[self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
 		
 	} else {
@@ -103,18 +103,15 @@
 }
 
 - (void)browserButtonPressed {
-	UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[ImageBrowserViewController new]];
-	controller.navigationBar.backgroundColor = [UIColor blackColor];
-	controller.navigationBar.tintColor = [UIColor blackColor];
-    [self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
-}
-
-- (void)test {
-
-    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[MaskViewController new]];
-	controller.navigationBar.backgroundColor = [UIColor blackColor];
-	controller.navigationBar.tintColor = [UIColor blackColor];
-    [self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
+	
+	if (!([((UINavigationController*)self.sideMenuViewController.mainViewController).viewControllers[0] isKindOfClass:[ImageBrowserViewController class]])) {
+		UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[ImageBrowserViewController new]];
+		controller.navigationBar.backgroundColor = [UIColor blackColor];
+		controller.navigationBar.tintColor = [UIColor blackColor];
+		[self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
+	} else {
+		[self.sideMenuViewController closeMenuAnimated:YES completion:nil];
+	}
 
 }
 
@@ -173,7 +170,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.row == 0) {
-		[self test];
+		[self faceSwapButtonPressed];
 	} else if (indexPath.row == 1) {
 		[self pixelatorButtonPressed];
 	} else if (indexPath.row == 2) {

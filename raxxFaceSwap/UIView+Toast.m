@@ -145,7 +145,7 @@ static int multiToastCounter = 0;
                          toast.alpha = 0.0;
                      } completion:^(BOOL finished) {
                          [toast removeFromSuperview];
-						 multiToastCounter--;
+						 multiToastCounter = 0;
                      }];
 }
 

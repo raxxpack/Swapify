@@ -53,41 +53,10 @@
 	UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
     self.navigationItem.leftBarButtonItem = openItem;
 	
-	UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(selectImage:)];
+	UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePressed:)];
 	
 	[[self navigationItem] setRightBarButtonItem:rightButton];
 	
-	[self initToolbar];
-	
-}
-
-- (void)initToolbar {
-	
-	self.navigationController.toolbar.tintColor = [UIColor blackColor];
-	
-	UIBarButtonItem* shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharePressed:)];
-	UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editPressed:)];
-	UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-	UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-	
-	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, editButton, flexibleSpace, shareButton, fixedSpace, nil] animated:YES];
-	self.navigationController.toolbarHidden = NO;
-}
-
-- (void)initEditToolbar {
-	
-	UIBarButtonItem* undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoPressed:)];
-	
-	UIBarButtonItem* editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editPressed:)];
-	
-	UIBarButtonItem* redoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRedo target:self action:@selector(redoPressed:)];
-	
-	UIBarButtonItem* pixelateButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(pixelateButtonPressed)];
-	
-	UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-	UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
-	
-	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, undoButton, flexibleSpace, redoButton, flexibleSpace, pixelateButton, flexibleSpace, fixedSpace, editButton, fixedSpace, nil] animated:YES];
 }
 
 - (void)openButtonPressed {
@@ -107,19 +76,24 @@
 	[self presentViewController:imagePicker animated:YES completion:nil];
 }
 
+- (void)cameraPressed:(id)sender {
+	
+	UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];
+	
+	imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+		imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+	}
+	imagePicker.delegate = self;
+	imagePicker.allowsEditing = YES;
+	[self presentViewController:imagePicker animated:YES completion:nil];
+}
+
 - (void)undoPressed:(id)sender {
 	
 }
 
 - (void)redoPressed:(id)sender {
-	
-}
-
-- (void)pixelatePressed:(id)sender {
-
-}
-
-- (void)pixelateButtonPressed {
 	
 }
 
@@ -166,25 +140,25 @@
 	[self presentViewController:shareController animated:YES completion:nil];
 }
 
-- (void)editPressed:(id)sender {
-	if (self.isEditToolbarOpen) {
-		[self closeEditToolbar];
-		[self.navigationItem.rightBarButtonItem setEnabled:YES];
-	} else {
-		[self openEditToolbar];
-		[self.navigationItem.rightBarButtonItem setEnabled:NO];
-	}
-}
-
-- (void)editButtonPressed {
-	if (self.isEditToolbarOpen) {
-		[self closeEditToolbar];
-		[self.navigationItem.rightBarButtonItem setEnabled:YES];
-	} else {
-		[self openEditToolbar];
-		[self.navigationItem.rightBarButtonItem setEnabled:NO];
-	}
-}
+//- (void)editPressed:(id)sender {
+//	if (self.isEditToolbarOpen) {
+//		[self closeEditToolbar];
+//		[self.navigationItem.rightBarButtonItem setEnabled:YES];
+//	} else {
+//		[self openEditToolbar];
+//		[self.navigationItem.rightBarButtonItem setEnabled:NO];
+//	}
+//}
+//
+//- (void)editButtonPressed {
+//	if (self.isEditToolbarOpen) {
+//		[self closeEditToolbar];
+//		[self.navigationItem.rightBarButtonItem setEnabled:YES];
+//	} else {
+//		[self openEditToolbar];
+//		[self.navigationItem.rightBarButtonItem setEnabled:NO];
+//	}
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -193,16 +167,6 @@
 
 - (void)handleTap:(id)sender {
 	
-}
-
-- (void)closeEditToolbar {
-	self.isEditToolbarOpen = NO;
-	[self initToolbar];
-}
-
-- (void)openEditToolbar {
-	self.isEditToolbarOpen = YES;
-	[self initEditToolbar];
 }
 
 #pragma mark -- UIImagePickerController delegate methods

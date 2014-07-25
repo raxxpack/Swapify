@@ -44,8 +44,23 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shakeNotification:)
 												 name:@"UIEventSubtypeMotionShakeEnded" object:nil];
 	
+	[self initToolbar];
+	
 }
 
+- (void)initToolbar {
+	
+	self.navigationController.toolbar.tintColor = [UIColor blackColor];
+	
+	UIBarButtonItem* libraryButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"libraryButton3"] style:UIBarButtonItemStylePlain target:self action:@selector(selectImage:)];
+	UIBarButtonItem* pixelateButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fantasyblack2"] style:UIBarButtonItemStylePlain target:self action:@selector(handleTap:)];
+	UIBarButtonItem* cameraButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(cameraPressed:)];
+	UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+	UIBarButtonItem* fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+	
+	[self setToolbarItems:[NSArray arrayWithObjects:fixedSpace, libraryButton, flexibleSpace, pixelateButton, flexibleSpace, cameraButton, fixedSpace, nil] animated:YES];
+	self.navigationController.toolbarHidden = NO;
+}
 
 - (void) shakeNotification:(id)sender {
 	UIAlertView* alert;
@@ -100,6 +115,24 @@
 	if (buttonIndex == 1) {
 		[self unPixellateFaces];
 	}
+}
+
+- (UIImage*)currentImage
+{
+	
+	UIGraphicsBeginImageContext(self.view.bounds.size);
+	[self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:NO];
+	UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return image;
+	
+	
+}
+
+- (void)sharePressed:(id)sender {
+	
+	UIActivityViewController* shareController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:[self currentImage]] applicationActivities: nil];
+	[self presentViewController:shareController animated:YES completion:nil];
 }
 
 @end
