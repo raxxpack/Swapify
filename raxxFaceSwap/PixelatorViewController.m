@@ -39,7 +39,7 @@
 	self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 	
 	self.originalImage = self.imageView.image;
-	[self.view makeMultiToastBottomCentered:@"Tap to pixellate faces!" duration:3.0];
+	[self.view makeMultiToastBottomCentered:@"Tap to pixellate faces!" duration:2.0];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shakeNotification:)
 												 name:@"UIEventSubtypeMotionShakeEnded" object:nil];

@@ -33,7 +33,8 @@ int assignedImageViewNumber;
 		self.title = @"Face Swap!";
 		
 		self.imageView.image = [UIImage imageNamed:@"faceSwapTest.jpg"];
-		self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"faceSwapTest.jpg"]];
+//		self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"faceSwapTest.jpg"]];
+		self.imageView = [[UIImageView alloc] initWithImage:nil];
 		
 		self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.image.size.width, self.imageView.image.size.width);
     }
@@ -54,7 +55,6 @@ int assignedImageViewNumber;
 {
     [super viewDidLoad];
 	
-	[self.view makeMultiToastBottomCentered:@"Shake to swap faces!" duration:3.0];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shakeNotification:)
 												 name:@"UIEventSubtypeMotionShakeEnded" object:nil];
 	
@@ -265,16 +265,14 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
         faceRect2.origin = CGPointMake(temp1.origin.x, self.imageView.image.size.height+40 - CGRectGetMaxY(temp1));
         UIImage* face2UIImage = [UIImage imageWithCIImage:faceImage2 scale:scale orientation:UIImageOrientationUp];
         
-		
-        
         UIGraphicsBeginImageContextWithOptions(self.imageView.image.size, NO, 0.0);
 		//        [self.imageView.image drawInRect:CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height)];
         
 		face1UIImage = [self cropToCircle:face1UIImage andRect:faceRect1];
 		face2UIImage = [self cropToCircle:face2UIImage andRect:faceRect2];
 		
-		//		face1UIImage = [self maskToFaceShape:face1UIImage andRect:faceRect1];
-		//		face2UIImage = [self maskToFaceShape:face2UIImage andRect:faceRect2];
+		face1UIImage = [self maskToFaceShape:face1UIImage andRect:faceRect1];
+		face2UIImage = [self maskToFaceShape:face2UIImage andRect:faceRect2];
 		
 		self.face1ImageView.image = face1UIImage;
 		self.face1ImageView.frame = faceRect1;
@@ -307,7 +305,7 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 
 - (UIImage*)maskToFaceShape:(UIImage*)face andRect:(CGRect)imageRect {
 	
-	UIImage* maskImage = [UIImage imageNamed:@"FaceMask2"];
+	UIImage* maskImage = [UIImage imageNamed:@"FaceMask2.png"];
 	//	maskImage = [self imageWithImage:maskImage scaledToSize:imageRect.size];
 	CGImageRef maskRef = maskImage.CGImage;
 	
@@ -316,11 +314,48 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 										CGImageGetBitsPerComponent(maskRef),
 										CGImageGetBitsPerPixel(maskRef),
 										CGImageGetBytesPerRow(maskRef),
-										CGImageGetDataProvider(maskRef), NULL, false);
+										CGImageGetDataProvider(maskRef), NULL, YES);
 	
 	CGImageRef masked = CGImageCreateWithMask([face CGImage], mask);
 	return [UIImage imageWithCGImage:masked];
 }
+
+//- (UIImage*)maskToFaceShape:(UIImage*)face andRect:(CGRect)imageRect {
+//	CGContextRef mainViewContentContext;
+//	CGColorSpaceRef colorSpace;
+//	
+//	colorSpace = CGColorSpaceCreateDeviceRGB();
+//	
+//	face = [face imageWithAlpha];
+//	
+//	// create a bitmap graphics context the size of the image
+//	mainViewContentContext = CGBitmapContextCreate (NULL, imageRect.size.width, imageRect.size.height, 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
+//	
+//	// free the rgb colorspace
+//	CGColorSpaceRelease(colorSpace);
+//	
+//	if (mainViewContentContext==NULL)
+//		return NULL;
+//	
+//	CGImageRef maskImage = [[[UIImage imageNamed:@"FaceMask2.png"] imageWithAlpha] CGImage];
+//	CGContextClipToMask(mainViewContentContext, CGRectMake(0, 0, imageRect.size.width, imageRect.size.height), maskImage);
+//	CGContextDrawImage(mainViewContentContext, CGRectMake(0, 0, imageRect.size.width, imageRect.size.height), [face CGImage]);
+//	
+//	
+//	// Create CGImageRef of the main view bitmap content, and then
+//	// release that bitmap context
+//	CGImageRef mainViewContentBitmapContext = CGBitmapContextCreateImage(mainViewContentContext);
+//	CGContextRelease(mainViewContentContext);
+//	
+//	// convert the finished resized image to a UIImage
+//	UIImage *theImage = [UIImage imageWithCGImage:mainViewContentBitmapContext];
+//	// image is retained by the property setting above, so we can
+//	// release the original
+//	CGImageRelease(mainViewContentBitmapContext);
+//	
+//	// return the image
+//	return theImage;
+//}
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
     //UIGraphicsBeginImageContext(newSize);
@@ -341,6 +376,8 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	self.tapOverView.frame = CGRectMake(0, 40, self.scrollView.contentSize.width, self.scrollView.contentSize.height);
 	self.face1ImageView.image = nil;
 	self.face2ImageView.image = nil;
+		
+	[self.view makeMultiToastBottomCentered:@"Shake to swap faces!" duration:2.0];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

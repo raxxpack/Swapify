@@ -35,7 +35,7 @@
     self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nil"]];
     self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
 	
-	self.sideMenuViewController.shadowColor = [UIColor whiteColor];
+	self.sideMenuViewController.shadowColor = [UIColor blackColor];
 	
     CGRect imageViewRect = [[UIScreen mainScreen] bounds];
     imageViewRect.size.width += 589;
