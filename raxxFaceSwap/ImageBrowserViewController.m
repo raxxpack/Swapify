@@ -44,6 +44,9 @@
 {
     [super viewDidLoad];
 	
+	self.navigationController.navigationBar.tintColor = kContrastTintColor;
+	self.navigationController.navigationBar.barTintColor = kLightTintColor;
+	
 	self.view.backgroundColor = [UIColor blackColor];
 	self.title = @"Browse";
 	
@@ -65,7 +68,7 @@
 	[self.view addSubview:self.collectionView];
 	
 	self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.tintColor = [UIColor lightGrayColor];
+    self.refreshControl.tintColor = kLightTintColor;
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:self.refreshControl];
     self.collectionView.alwaysBounceVertical = YES;
@@ -101,6 +104,7 @@
 		self.displayTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 320, 280, 100)];
 		self.displayTextView.backgroundColor = [UIColor clearColor];
 		self.displayTextView.userInteractionEnabled = NO;
+		self.displayTextView.textColor = kLightTintColor;
 		[_displayView addSubview:self.displayTextView];
 		
 		UISwipeGestureRecognizer* swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipedDown)];
@@ -152,7 +156,8 @@
 
 - (void)initToolbarItems {
 	
-	self.navigationController.toolbar.tintColor = [UIColor blackColor];
+	self.navigationController.toolbar.tintColor = kContrastTintColor;
+	self.navigationController.toolbar.barTintColor = kLightTintColor;
 	UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
 	UIBarButtonItem* previous = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(leftPressed:)];
 	UIBarButtonItem* next = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(rightPressed:)];
@@ -208,7 +213,7 @@
 			NSString* dateString = [formatter stringFromDate:epochDate];
 			
 			self.displayTextView.text = [NSString stringWithFormat:@"%@ - %@ \n%@", author, dateString, title];
-			self.displayTextView.textColor = [UIColor whiteColor];
+			self.displayTextView.textColor = kLightTintColor;
 		}];
 	}
 }
@@ -244,7 +249,7 @@
 			NSString* dateString = [formatter stringFromDate:epochDate];
 			
 			self.displayTextView.text = [NSString stringWithFormat:@"%@ - %@ \n%@", author, dateString, title];
-			self.displayTextView.textColor = [UIColor whiteColor];
+			self.displayTextView.textColor = kLightTintColor;
 		}];
 	} else {
 		[self getData];
@@ -298,7 +303,7 @@
 	NSString* dateString = [formatter stringFromDate:epochDate];
 	
 	self.displayTextView.text = [NSString stringWithFormat:@"%@ - %@ \n%@", author, dateString, title];
-	self.displayTextView.textColor = [UIColor whiteColor];
+	self.displayTextView.textColor = kLightTintColor;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {

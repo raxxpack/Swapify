@@ -36,7 +36,8 @@
 	
 	self.title = @"Pixellator";
 	
-	self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+	self.navigationController.navigationBar.tintColor = kContrastTintColor;
+	self.navigationController.navigationBar.barTintColor = kLightTintColor;
 	
 	self.originalImage = self.imageView.image;
 	[self.view makeMultiToastBottomCentered:@"Tap to pixellate faces!" duration:2.0];
@@ -50,7 +51,8 @@
 
 - (void)initToolbar {
 	
-	self.navigationController.toolbar.tintColor = [UIColor blackColor];
+	self.navigationController.toolbar.tintColor = kContrastTintColor;
+	self.navigationController.toolbar.barTintColor = kLightTintColor;
 	
 	UIBarButtonItem* libraryButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"libraryButton3"] style:UIBarButtonItemStylePlain target:self action:@selector(selectImage:)];
 	UIBarButtonItem* pixelateButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fantasyblack2"] style:UIBarButtonItemStylePlain target:self action:@selector(handleTap:)];

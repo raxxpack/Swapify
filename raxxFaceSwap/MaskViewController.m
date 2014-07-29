@@ -32,7 +32,7 @@ int assignedImageViewNumber;
     if (self) {
 		self.title = @"Face Swap!";
 		
-		self.imageView.image = [UIImage imageNamed:@"faceSwapTest.jpg"];
+//		self.imageView.image = [UIImage imageNamed:@"faceSwapTest.jpg"];
 //		self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"faceSwapTest.jpg"]];
 		self.imageView = [[UIImageView alloc] initWithImage:nil];
 		
@@ -58,8 +58,10 @@ int assignedImageViewNumber;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shakeNotification:)
 												 name:@"UIEventSubtypeMotionShakeEnded" object:nil];
 	
-	self.view.backgroundColor = [UIColor blackColor];
-	self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+	self.view.backgroundColor = [UIColor blackColor];//[UIColor colorWithRed:255.0f/255.0f green:236.0f/255.0f blue:203.0f/255.0f alpha:1.0f];
+	self.navigationController.navigationBar.tintColor = kContrastTintColor;
+	self.navigationController.navigationBar.barTintColor = kLightTintColor;
+//	self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:236.0f/255.0f green:113.0f/255.0f blue:9.0f/255.0f alpha:1.0f]};
 	
     self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height+ 40);
 	[self.scrollView removeGestureRecognizer:self.tapGesture];
@@ -106,7 +108,8 @@ int assignedImageViewNumber;
 
 - (void)initToolbar {
 	
-	self.navigationController.toolbar.tintColor = [UIColor blackColor];
+	self.navigationController.toolbar.tintColor = kContrastTintColor;
+	self.navigationController.toolbar.barTintColor = kLightTintColor;
 	
 	UIBarButtonItem* libraryButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"libraryButton3"] style:UIBarButtonItemStylePlain target:self action:@selector(selectImage:)];
 	UIBarButtonItem* faceSwapButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"theatremaskblack2"] style:UIBarButtonItemStylePlain target:self action:@selector(getFaces)];
@@ -210,8 +213,8 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 - (UIImage*)currentImage
 {
 	
-	UIGraphicsBeginImageContext(self.view.bounds.size);
-	[self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:NO];
+	UIGraphicsBeginImageContext(self.imageView.bounds.size);
+	[self.imageView drawViewHierarchyInRect:self.imageView.bounds afterScreenUpdates:NO];
 	UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	return image;
@@ -228,6 +231,12 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 #pragma mark - Face Swap Methods
 
 - (void)getFaces {
+	
+	self.face1ImageView.image = nil;
+	self.face2ImageView.image = nil;
+	
+	self.face1ImageView.transform = CGAffineTransformIdentity;
+	self.face2ImageView.transform = CGAffineTransformIdentity;
 	
 	CIImage *myImage = [CIImage imageWithCGImage:[self.imageView.image CGImage]];
 	NSNumber *orientation = [NSNumber numberWithInt:[self.imageView.image imageOrientation]+1];

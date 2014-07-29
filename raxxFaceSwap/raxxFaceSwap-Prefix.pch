@@ -14,3 +14,12 @@
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
 #endif
+
+
+#pragma mark - Colors
+
+#define kChampagneColor [UIColor colorWithRed:245.0f/255.0f green:226.0f/255.0f blue:195.0f/255.0f alpha:1.0f]
+#define kTangeloColor [UIColor colorWithRed:244.0f/255.0f green:53.0f/255.0f blue:6.0f/255.0f alpha:1.0f]
+
+#define kLightTintColor kChampagneColor
+#define kContrastTintColor kTangeloColor
