@@ -25,6 +25,9 @@
 @implementation MaskViewController
 
 int assignedImageViewNumber;
+int scaleX;
+int scaleY;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -202,6 +205,34 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	
 }
 
+- (void)handleDoubleTap:(UITapGestureRecognizer*)sender {
+	
+	if (self.isZoomed) {
+		[UIView animateWithDuration:0.3 animations:^{
+			self.navigationController.navigationBarHidden = NO;
+			[self.navigationController setToolbarHidden:NO animated:YES];
+
+			
+			
+			
+		} completion:^(BOOL finished) {
+			self.isZoomed = NO;
+		}];
+		
+	} else {
+		[UIView animateWithDuration:0.3 animations:^{
+			[self.navigationController setNavigationBarHidden:YES animated:YES];
+			[self.navigationController setToolbarHidden:YES animated:YES];
+			
+			
+			
+			
+		} completion:^(BOOL finished) {
+			self.isZoomed = YES;
+		}];
+	}
+}
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
 	return YES;
 }
@@ -213,12 +244,11 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 - (UIImage*)currentImage
 {
 	
-	UIGraphicsBeginImageContext(self.imageView.bounds.size);
-	[self.imageView drawViewHierarchyInRect:self.imageView.bounds afterScreenUpdates:NO];
+	UIGraphicsBeginImageContext(self.view.bounds.size);
+	[self.view drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:NO];
 	UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	return image;
-	
 	
 }
 
@@ -291,7 +321,7 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	}
 	
 	
-	[self.view makeMultiToastBottomCentered:@"Tap faces to edit" duration:2.0];
+	[self.view makeMultiToastBottomCentered:@"Tap a face to edit." duration:2.0];
 }
 
 - (UIImage*)cropToCircle:(UIImage*)face andRect:(CGRect)imageRect {
@@ -327,54 +357,6 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	
 	CGImageRef masked = CGImageCreateWithMask([face CGImage], mask);
 	return [UIImage imageWithCGImage:masked];
-}
-
-//- (UIImage*)maskToFaceShape:(UIImage*)face andRect:(CGRect)imageRect {
-//	CGContextRef mainViewContentContext;
-//	CGColorSpaceRef colorSpace;
-//	
-//	colorSpace = CGColorSpaceCreateDeviceRGB();
-//	
-//	face = [face imageWithAlpha];
-//	
-//	// create a bitmap graphics context the size of the image
-//	mainViewContentContext = CGBitmapContextCreate (NULL, imageRect.size.width, imageRect.size.height, 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
-//	
-//	// free the rgb colorspace
-//	CGColorSpaceRelease(colorSpace);
-//	
-//	if (mainViewContentContext==NULL)
-//		return NULL;
-//	
-//	CGImageRef maskImage = [[[UIImage imageNamed:@"FaceMask2.png"] imageWithAlpha] CGImage];
-//	CGContextClipToMask(mainViewContentContext, CGRectMake(0, 0, imageRect.size.width, imageRect.size.height), maskImage);
-//	CGContextDrawImage(mainViewContentContext, CGRectMake(0, 0, imageRect.size.width, imageRect.size.height), [face CGImage]);
-//	
-//	
-//	// Create CGImageRef of the main view bitmap content, and then
-//	// release that bitmap context
-//	CGImageRef mainViewContentBitmapContext = CGBitmapContextCreateImage(mainViewContentContext);
-//	CGContextRelease(mainViewContentContext);
-//	
-//	// convert the finished resized image to a UIImage
-//	UIImage *theImage = [UIImage imageWithCGImage:mainViewContentBitmapContext];
-//	// image is retained by the property setting above, so we can
-//	// release the original
-//	CGImageRelease(mainViewContentBitmapContext);
-//	
-//	// return the image
-//	return theImage;
-//}
-
-- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
-    //UIGraphicsBeginImageContext(newSize);
-    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
-    // Pass 1.0 to force exact pixel size.
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
 }
 
 #pragma mark -- UIImagePickerController delegate methods

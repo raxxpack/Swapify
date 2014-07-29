@@ -62,13 +62,13 @@
 	layout.minimumLineSpacing = 5.0f;
 	self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) collectionViewLayout:layout];
 	[self.collectionView registerClass:[ThumbnailCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
-	self.collectionView.backgroundColor = [UIColor blackColor];
+	self.collectionView.backgroundColor = kLightTintColor;
 	self.collectionView.delegate = self;
 	self.collectionView.dataSource = self;
 	[self.view addSubview:self.collectionView];
 	
 	self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.tintColor = kLightTintColor;
+    self.refreshControl.tintColor = kContrastTintColor;
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     [self.collectionView addSubview:self.refreshControl];
     self.collectionView.alwaysBounceVertical = YES;

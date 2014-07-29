@@ -31,8 +31,10 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor grayColor];
+	
+	
     
-    self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nil"]];
+    self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"gradient1.png"]];
     self.backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
 	
 	self.sideMenuViewController.shadowColor = [UIColor blackColor];
@@ -119,12 +121,6 @@
 {
 	[self.sideMenuViewController closeMenuAnimated:YES completion:nil];
 }
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
-
 
 #pragma mark -- TableView Methods
 

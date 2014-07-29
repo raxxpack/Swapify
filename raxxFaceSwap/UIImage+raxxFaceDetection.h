@@ -16,5 +16,6 @@
  */
 - (UIView*)markFaces:(UIImageView *)image; 
 - (UIImage*) pixelateFaces:(UIImage*)fromImage;
+- (UIImage*) pixelateFaces:(UIImage*)fromImage withPoint:(CGPoint)point;
 
 @end

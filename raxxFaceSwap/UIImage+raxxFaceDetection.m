@@ -84,6 +84,10 @@
 	CIImage* maskImage = nil;
 	
 	for (CIFeature *f in faceArray) {
+		maskImage = nil;
+		
+		NSLog(@"%f , %f", f.bounds.origin.x, f.bounds.origin.y);
+		
 		CGFloat centerX = f.bounds.origin.x + f.bounds.size.width / 2.0f;
 		CGFloat centerY = f.bounds.origin.y + f.bounds.size.height / 2.0f;
 		CGFloat radius = MIN(f.bounds.size.width, f.bounds.size.height) / 1.5f;
@@ -101,6 +105,65 @@
 		} else {
 			maskImage = [[CIFilter filterWithName:@"CISourceOverCompositing" keysAndValues:kCIInputImageKey, circleImage, kCIInputBackgroundImageKey, maskImage, nil] valueForKey:kCIOutputImageKey];
 		}
+	}
+	
+	CIFilter *blendFilter = [CIFilter filterWithName:@"CIBlendWithMask"];
+	[blendFilter setValue:pixellatedImage forKey:@"inputImage"];
+	[blendFilter setValue:inputImage forKey:@"inputBackgroundImage"];
+	[blendFilter setValue:maskImage forKey:@"inputMaskImage"];
+	CIImage *outputImage = [blendFilter outputImage];
+	
+	return [UIImage imageWithCIImage:outputImage];
+	
+}
+
+- (UIImage*) pixelateFaces:(UIImage*)fromImage withPoint:(CGPoint)point
+{
+    CIFilter *filter= [CIFilter filterWithName:@"CIPixellate"];
+	
+    CIImage *inputImage = [[CIImage alloc] initWithImage:fromImage];
+	CGFloat inputScale = MAX(fromImage.size.width, fromImage.size.height)/60;
+    [filter setValue:[NSNumber numberWithDouble:inputScale] forKey:@"inputScale"];
+    [filter setValue:inputImage forKey:@"inputImage"];
+	CIImage *pixellatedImage = [filter outputImage];
+	
+	CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:nil];
+	NSArray* faceArray = [detector featuresInImage:inputImage options:nil];
+	
+	CIImage* maskImage = nil;
+	
+	int difference = 0;
+	
+	CGFloat centerX;
+	CGFloat centerY;
+	CGFloat radius;
+	
+	for (CIFeature *f in faceArray) {
+		
+		CGPoint origin = f.bounds.origin;
+		
+		if (sqrt(pow((origin.x - point.x), 2) + pow((origin.y - point.y), 2)) < difference) {
+			difference = sqrt(pow((origin.x - point.x), 2) + pow((origin.y - point.y), 2));
+			
+			centerX = f.bounds.origin.x + f.bounds.size.width / 2.0f;
+			centerY = f.bounds.origin.y + f.bounds.size.height / 2.0f;
+			radius = MIN(f.bounds.size.width, f.bounds.size.height) / 1.5f;
+		}
+	}
+	
+	CIFilter *radialGradient = [CIFilter filterWithName:@"CIRadialGradient" keysAndValues:
+								@"inputRadius0", @(radius),
+								@"inputRadius1", @(radius + 1.0f),
+								@"inputColor0", [CIColor colorWithRed:0 green:1 blue:0 alpha:1],
+								@"inputColor1", [CIColor colorWithRed:0 green:0 blue:0 alpha:1],
+								kCIInputCenterKey, [CIVector vectorWithX:centerX Y:centerY],
+								nil];
+	
+	CIImage *circleImage = [radialGradient valueForKey:kCIOutputImageKey];
+	if (maskImage == nil) {
+		maskImage = circleImage;
+	} else {
+		maskImage = [[CIFilter filterWithName:@"CISourceOverCompositing" keysAndValues:kCIInputImageKey, circleImage, kCIInputBackgroundImageKey, maskImage, nil] valueForKey:kCIOutputImageKey];
 	}
 	
 	CIFilter *blendFilter = [CIFilter filterWithName:@"CIBlendWithMask"];

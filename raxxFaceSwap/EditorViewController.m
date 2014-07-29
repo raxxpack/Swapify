@@ -34,15 +34,18 @@
 	self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 	self.tapGesture.delegate = self;
 	
+	self.doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+	self.doubleTap.numberOfTapsRequired = 2;
+	self.doubleTap.delegate = self;
+	
 	self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height - 44.0f)];
 	[self.scrollView setShowsHorizontalScrollIndicator:NO];
 	[self.scrollView setShowsVerticalScrollIndicator:NO];
 	self.scrollView.delegate = self;
 	[self.scrollView addGestureRecognizer:self.tapGesture];
+	[self.scrollView addGestureRecognizer:self.doubleTap];
 	[self.view addSubview:self.scrollView];
 	
-	
-//	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SteveJobs.jpg"]];
 	self.imageView.frame = (CGRect) {
 		.origin = CGPointMake(self.imageView.frame.origin.x, 44),
 		.size = self.imageView.image.size
@@ -89,46 +92,6 @@
 	[self presentViewController:imagePicker animated:YES completion:nil];
 }
 
-- (void)undoPressed:(id)sender {
-	
-}
-
-- (void)redoPressed:(id)sender {
-	
-}
-
-- (void)rotatePressed:(id)sender {
-	
-	self.imageView.image = [self imageRotated];
-}
-
-- (UIImage *)imageRotated
-{
-	// calculate the size of the rotated view's containing box for our drawing space
-	UIView *rotatedViewBox = [[UIView alloc] initWithFrame:CGRectMake(0,0,self.imageView.frame.size.width, self.imageView.frame.size.height)];
-	CGAffineTransform t = CGAffineTransformMakeRotation(M_PI/2);
-	rotatedViewBox.transform = t;
-	CGSize rotatedSize = rotatedViewBox.frame.size;
-	
-	// Create the bitmap context
-	UIGraphicsBeginImageContext(rotatedSize);
-	CGContextRef bitmap = UIGraphicsGetCurrentContext();
-	
-	// Move the origin to the middle of the image so we will rotate and scale around the center.
-	CGContextTranslateCTM(bitmap, rotatedSize.width/2, rotatedSize.height/2);
-	
-	//   // Rotate the image context
-	CGContextRotateCTM(bitmap, M_PI/2);
-	
-	// Now, draw the rotated/scaled image into the context
-	CGContextScaleCTM(bitmap, 1.0, -1.0);
-	CGContextDrawImage(bitmap, CGRectMake(-self.imageView.frame.size.width / 2, -self.imageView.frame.size.height / 2, self.imageView.frame.size.width, self.imageView.frame.size.height), [self.imageView.image CGImage]);
-	
-	UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-	UIGraphicsEndImageContext();
-	return newImage;
-}
-
 - (void)sharePressed:(id)sender {
 	
 	UIGraphicsBeginImageContext(self.imageView.bounds.size);
@@ -140,26 +103,6 @@
 	[self presentViewController:shareController animated:YES completion:nil];
 }
 
-//- (void)editPressed:(id)sender {
-//	if (self.isEditToolbarOpen) {
-//		[self closeEditToolbar];
-//		[self.navigationItem.rightBarButtonItem setEnabled:YES];
-//	} else {
-//		[self openEditToolbar];
-//		[self.navigationItem.rightBarButtonItem setEnabled:NO];
-//	}
-//}
-//
-//- (void)editButtonPressed {
-//	if (self.isEditToolbarOpen) {
-//		[self closeEditToolbar];
-//		[self.navigationItem.rightBarButtonItem setEnabled:YES];
-//	} else {
-//		[self openEditToolbar];
-//		[self.navigationItem.rightBarButtonItem setEnabled:NO];
-//	}
-//}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -167,6 +110,21 @@
 
 - (void)handleTap:(id)sender {
 	
+}
+
+- (void)handleDoubleTap:(UITapGestureRecognizer*)sender {
+	
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 #pragma mark -- UIImagePickerController delegate methods

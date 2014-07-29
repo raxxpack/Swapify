@@ -13,7 +13,9 @@
 @property (nonatomic, strong) UIScrollView* scrollView;
 @property (nonatomic, strong) UIImageView* imageView;
 @property (nonatomic, strong) UITapGestureRecognizer* tapGesture;
+@property (nonatomic, strong) UITapGestureRecognizer* doubleTap;
 @property (nonatomic, strong) UIToolbar* bottomToolbar;
+@property (assign) BOOL isZoomed;
 
 @property (nonatomic, assign) BOOL isEditToolbarOpen;
 
