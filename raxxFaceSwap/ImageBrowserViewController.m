@@ -167,7 +167,7 @@
 
 - (void)showDisplayView {
 	
-	[self.view makeMultiToastBottomCentered:@"Swipe down to return." duration:2.0];
+	[self.view makeMultiToastBottomCentered:@"Swipe down to return." duration:3.0];
 	
 	[UIView animateWithDuration:0.3 animations:^{
 		self.navigationController.toolbarHidden = NO;

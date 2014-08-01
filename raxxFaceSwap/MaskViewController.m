@@ -228,28 +228,31 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 		}];
 		
 	} else {
-		[UIView animateWithDuration:0.3 animations:^{
-			
-			scaleX = self.imageView.image.size.width / self.view.frame.size.width;
-			scaleY = self.imageView.image.size.height / self.view.frame.size.height;
-			
-			if (scaleX > scaleY) {
-				self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.frame.size.width/scaleX, self.imageView.frame.size.height/scaleX);
+		
+		if (self.imageView.image) {
+			[UIView animateWithDuration:0.3 animations:^{
 				
-				self.face1ImageView.frame = CGRectMake(self.face1ImageView.frame.origin.x / scaleX, self.face1ImageView.frame.origin.y / scaleX, self.face1ImageView.frame.size.width/scaleX, self.face1ImageView.frame.size.height/scaleX);
-				self.face2ImageView.frame = CGRectMake(self.face2ImageView.frame.origin.x / scaleX, self.face2ImageView.frame.origin.y / scaleX, self.face2ImageView.frame.size.width/scaleX, self.face2ImageView.frame.size.height/scaleX);
+				scaleX = self.imageView.image.size.width / self.view.frame.size.width;
+				scaleY = self.imageView.image.size.height / self.view.frame.size.height;
 				
-			} else {
-				self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.frame.size.width/scaleY, self.imageView.frame.size.height/scaleY);
-				self.face1ImageView.frame = CGRectMake(self.face1ImageView.frame.origin.x / scaleY, self.face1ImageView.frame.origin.y / scaleY, self.face1ImageView.frame.size.width/scaleY, self.face1ImageView.frame.size.height/scaleY);
-				self.face2ImageView.frame = CGRectMake(self.face2ImageView.frame.origin.x / scaleY, self.face2ImageView.frame.origin.y / scaleY, self.face2ImageView.frame.size.width/scaleY, self.face2ImageView.frame.size.height/scaleY);
-			}
-			
-			
-			
-		} completion:^(BOOL finished) {
-			self.isZoomed = YES;
-		}];
+				if (scaleX > scaleY) {
+					self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.frame.size.width/scaleX, self.imageView.frame.size.height/scaleX);
+					
+					self.face1ImageView.frame = CGRectMake(self.face1ImageView.frame.origin.x / scaleX, self.face1ImageView.frame.origin.y / scaleX, self.face1ImageView.frame.size.width/scaleX, self.face1ImageView.frame.size.height/scaleX);
+					self.face2ImageView.frame = CGRectMake(self.face2ImageView.frame.origin.x / scaleX, self.face2ImageView.frame.origin.y / scaleX, self.face2ImageView.frame.size.width/scaleX, self.face2ImageView.frame.size.height/scaleX);
+					
+				} else {
+					self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.frame.size.width/scaleY, self.imageView.frame.size.height/scaleY);
+					self.face1ImageView.frame = CGRectMake(self.face1ImageView.frame.origin.x / scaleY, self.face1ImageView.frame.origin.y / scaleY, self.face1ImageView.frame.size.width/scaleY, self.face1ImageView.frame.size.height/scaleY);
+					self.face2ImageView.frame = CGRectMake(self.face2ImageView.frame.origin.x / scaleY, self.face2ImageView.frame.origin.y / scaleY, self.face2ImageView.frame.size.width/scaleY, self.face2ImageView.frame.size.height/scaleY);
+				}
+				
+				self.scrollView.contentOffset = CGPointZero;
+				
+			} completion:^(BOOL finished) {
+				self.isZoomed = YES;
+			}];
+		}
 	}
 }
 

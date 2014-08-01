@@ -86,6 +86,14 @@
 }
 
 - (void)pixellateFaces:(id)sender {
+	
+	CIImage *image = [CIImage imageWithCGImage:[self.imageView.image CGImage]];
+	CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace context:nil options:nil];
+	NSArray* faceArray = [detector featuresInImage:image options:nil];
+	if ([faceArray count] > 1) {
+		[self.view makeMultiToastBottomCentered:@"Error: Too many people." duration:4.0];
+	}
+	
 	self.originalImage = self.imageView.image;
 	self.imageView.image = [self.imageView.image pixelateFaces:self.imageView.image];
 }
@@ -99,7 +107,7 @@
 	if (!self.isPixellated) {
 		self.isPixellated = YES;
 		[self pixellateFaces:nil];
-		[self.view makeMultiToastBottomCentered:@"Shake to restore." duration:3.0];
+		[self.view makeMultiToastBottomCentered:@"Shake to restore." duration:2.0];
 	}
 }
 
