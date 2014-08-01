@@ -25,8 +25,8 @@
 @implementation MaskViewController
 
 int assignedImageViewNumber;
-int scaleX;
-int scaleY;
+float scaleX;
+float scaleY;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -209,10 +209,18 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 	
 	if (self.isZoomed) {
 		[UIView animateWithDuration:0.3 animations:^{
-			self.navigationController.navigationBarHidden = NO;
-			[self.navigationController setToolbarHidden:NO animated:YES];
 
-			
+			if (scaleX > scaleY) {
+				self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.frame.size.width*scaleX, self.imageView.frame.size.height*scaleX);
+				
+				self.face1ImageView.frame = CGRectMake(self.face1ImageView.frame.origin.x * scaleX, self.face1ImageView.frame.origin.y * scaleX, self.face1ImageView.frame.size.width*scaleX, self.face1ImageView.frame.size.height*scaleX);
+				self.face2ImageView.frame = CGRectMake(self.face2ImageView.frame.origin.x * scaleX, self.face2ImageView.frame.origin.y * scaleX, self.face2ImageView.frame.size.width*scaleX, self.face2ImageView.frame.size.height*scaleX);
+				
+			} else {
+				self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.frame.size.width*scaleY, self.imageView.frame.size.height*scaleY);
+				self.face1ImageView.frame = CGRectMake(self.face1ImageView.frame.origin.x * scaleY, self.face1ImageView.frame.origin.y * scaleY, self.face1ImageView.frame.size.width*scaleY, self.face1ImageView.frame.size.height*scaleY);
+				self.face2ImageView.frame = CGRectMake(self.face2ImageView.frame.origin.x * scaleY, self.face2ImageView.frame.origin.y * scaleY, self.face2ImageView.frame.size.width*scaleY, self.face2ImageView.frame.size.height*scaleY);
+			}
 			
 			
 		} completion:^(BOOL finished) {
@@ -221,9 +229,21 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 		
 	} else {
 		[UIView animateWithDuration:0.3 animations:^{
-			[self.navigationController setNavigationBarHidden:YES animated:YES];
-			[self.navigationController setToolbarHidden:YES animated:YES];
 			
+			scaleX = self.imageView.image.size.width / self.view.frame.size.width;
+			scaleY = self.imageView.image.size.height / self.view.frame.size.height;
+			
+			if (scaleX > scaleY) {
+				self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.frame.size.width/scaleX, self.imageView.frame.size.height/scaleX);
+				
+				self.face1ImageView.frame = CGRectMake(self.face1ImageView.frame.origin.x / scaleX, self.face1ImageView.frame.origin.y / scaleX, self.face1ImageView.frame.size.width/scaleX, self.face1ImageView.frame.size.height/scaleX);
+				self.face2ImageView.frame = CGRectMake(self.face2ImageView.frame.origin.x / scaleX, self.face2ImageView.frame.origin.y / scaleX, self.face2ImageView.frame.size.width/scaleX, self.face2ImageView.frame.size.height/scaleX);
+				
+			} else {
+				self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, self.imageView.frame.origin.y, self.imageView.frame.size.width/scaleY, self.imageView.frame.size.height/scaleY);
+				self.face1ImageView.frame = CGRectMake(self.face1ImageView.frame.origin.x / scaleY, self.face1ImageView.frame.origin.y / scaleY, self.face1ImageView.frame.size.width/scaleY, self.face1ImageView.frame.size.height/scaleY);
+				self.face2ImageView.frame = CGRectMake(self.face2ImageView.frame.origin.x / scaleY, self.face2ImageView.frame.origin.y / scaleY, self.face2ImageView.frame.size.width/scaleY, self.face2ImageView.frame.size.height/scaleY);
+			}
 			
 			
 			
@@ -253,6 +273,10 @@ PinchAxis pinchGestureRecognizerAxis(UIPinchGestureRecognizer *r) {
 }
 
 - (void)sharePressed:(id)sender {
+	
+	if (!self.isZoomed) {
+		[self handleDoubleTap:nil];
+	}
 	
 	UIActivityViewController* shareController = [[UIActivityViewController alloc] initWithActivityItems:[NSArray arrayWithObject:[self currentImage]] applicationActivities: nil];
 	[self presentViewController:shareController animated:YES completion:nil];
