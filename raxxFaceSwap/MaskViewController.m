@@ -61,10 +61,9 @@ float scaleY;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shakeNotification:)
 												 name:@"UIEventSubtypeMotionShakeEnded" object:nil];
 	
-	self.view.backgroundColor = [UIColor blackColor];//[UIColor colorWithRed:255.0f/255.0f green:236.0f/255.0f blue:203.0f/255.0f alpha:1.0f];
+	self.view.backgroundColor = [UIColor blackColor];
 	self.navigationController.navigationBar.tintColor = kContrastTintColor;
 	self.navigationController.navigationBar.barTintColor = kLightTintColor;
-//	self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:236.0f/255.0f green:113.0f/255.0f blue:9.0f/255.0f alpha:1.0f]};
 	
     self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height+ 40);
 	[self.scrollView removeGestureRecognizer:self.tapGesture];
