@@ -58,6 +58,7 @@
 		5BC1F2241899785800E11A42 /* raxxFaceSwapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1F2231899785800E11A42 /* raxxFaceSwapTests.m */; };
 		5BC1F22F1899789A00E11A42 /* UIImage+raxxFaceDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1F22E1899789A00E11A42 /* UIImage+raxxFaceDetection.m */; };
 		5BC1F2341899790200E11A42 /* MarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1F2331899790200E11A42 /* MarkViewController.m */; };
+		5BE94D2F199E4EC3005B1D9E /* AppIcon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5BE94D2E199E4EC3005B1D9E /* AppIcon.jpg */; };
 		652396DB9EFA41E7A017F52A /* libPods-raxxFaceSwap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30619EFB79EA4EF0B037FF0E /* libPods-raxxFaceSwap.a */; };
 		C9B11D051962F858009D1092 /* MaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B11D041962F858009D1092 /* MaskViewController.m */; };
 		C9C847D0192B910100BF9CAA /* faceSwapTest.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C9C847CF192B910100BF9CAA /* faceSwapTest.jpg */; };
@@ -144,6 +145,7 @@
 		5BC1F22E1899789A00E11A42 /* UIImage+raxxFaceDetection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+raxxFaceDetection.m"; sourceTree = "<group>"; };
 		5BC1F2321899790200E11A42 /* MarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkViewController.h; sourceTree = "<group>"; };
 		5BC1F2331899790200E11A42 /* MarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkViewController.m; sourceTree = "<group>"; };
+		5BE94D2E199E4EC3005B1D9E /* AppIcon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = AppIcon.jpg; sourceTree = "<group>"; };
 		C9B11D031962F858009D1092 /* MaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskViewController.h; sourceTree = "<group>"; };
 		C9B11D041962F858009D1092 /* MaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaskViewController.m; sourceTree = "<group>"; };
 		C9C847CF192B910100BF9CAA /* faceSwapTest.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = faceSwapTest.jpg; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		5BC1F2051899785800E11A42 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5BE94D2E199E4EC3005B1D9E /* AppIcon.jpg */,
 				5BC1F2061899785800E11A42 /* raxxFaceSwap-Info.plist */,
 				5BC1F2071899785800E11A42 /* InfoPlist.strings */,
 				5BC1F20A1899785800E11A42 /* main.m */,
@@ -434,6 +437,7 @@
 				5B1F7C531982ABEB00EB6719 /* libraryButton.png in Resources */,
 				5B1F7C5B1982AFE100EB6719 /* theatremaskblack2.png in Resources */,
 				5B0993091912A8BB008C3185 /* Blurred-Background6.jpg in Resources */,
+				5BE94D2F199E4EC3005B1D9E /* AppIcon.jpg in Resources */,
 				5B1F7C5D1982F7EB00EB6719 /* whiteImagePlaceholder.png in Resources */,
 				5B1F7C591982AFD200EB6719 /* fantasyblack2.png in Resources */,
 				5B0D75A419805D8F0071B2F2 /* compasblack.png in Resources */,

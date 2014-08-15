@@ -236,7 +236,7 @@
 			NSURL* newURL = [NSURL URLWithString:url];
 			
 			[self.displayImageView sd_setImageWithURL:newURL placeholderImage:[UIImage imageNamed:@"nil"]];
-
+			
 			
 			NSString* title = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"title"];
 			NSString* author = [[[self.posts objectAtIndex:self.currentIndex] objectForKey:@"data"] objectForKey:@"author"];
